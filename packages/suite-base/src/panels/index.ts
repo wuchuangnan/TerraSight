@@ -135,9 +135,9 @@ export const getBuiltin: (t: TFunction<"panels">) => PanelInfo[] = (t) => [
     hasCustomToolbar: true,
   },
   {
-    title: "Raw Messages Virtual",
+    title: t("rawMessagesVirtual"),
     type: "RawMessagesVirtual",
-    description: "Virtualized Raw Messages panel",
+    description: t("rawMessagesVirtualDescription"),
     module: async () => await import("./RawMessagesVirtual"),
     hasCustomToolbar: true,
   },

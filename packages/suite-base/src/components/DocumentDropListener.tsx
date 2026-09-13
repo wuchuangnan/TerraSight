@@ -17,6 +17,7 @@
 import { useSnackbar } from "notistack";
 import { extname } from "path";
 import { useCallback, useLayoutEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import Logger from "@lichtblick/log";
 import DropOverlay from "@lichtblick/suite-base/components/DropOverlay";
@@ -42,6 +43,7 @@ type PendingFile = {
 };
 
 export default function DocumentDropListener(props: DocumentDropListenerProps): React.JSX.Element {
+  const { t } = useTranslation("general");
   const [hovering, setHovering] = useState(false);
   const [pendingFiles, setPendingFiles] = useState<PendingFile | undefined>(undefined);
   const [showNamespaceModal, setShowNamespaceModal] = useState(false);
@@ -182,7 +184,7 @@ export default function DocumentDropListener(props: DocumentDropListenerProps): 
 
       // Check for no supported files
       if (filteredFiles.length === 0 && filteredHandles?.length === 0) {
-        enqueueSnackbar("The file format is not supported.", { variant: "error" });
+        enqueueSnackbar(t("fileFormatNotSupported"), { variant: "error" });
         return;
       }
 
@@ -196,7 +198,7 @@ export default function DocumentDropListener(props: DocumentDropListenerProps): 
         onDropProp?.({ files: filteredFiles, handles: filteredHandles, namespace: "local" });
       }
     },
-    [enqueueSnackbar, onDropProp, allowedExtensions, shouldShowNamespaceModal],
+    [enqueueSnackbar, onDropProp, allowedExtensions, shouldShowNamespaceModal, t],
   );
 
   const onDragOver = useCallback(
@@ -250,7 +252,7 @@ export default function DocumentDropListener(props: DocumentDropListenerProps): 
         data-puppeteer-file-upload
         multiple
       />
-      <DropOverlay open={hovering}>Drop a file here</DropOverlay>
+      <DropOverlay open={hovering}>{t("dropFileHere")}</DropOverlay>
       {pendingFiles && (
         <NamespaceSelectionModal
           open={showNamespaceModal}

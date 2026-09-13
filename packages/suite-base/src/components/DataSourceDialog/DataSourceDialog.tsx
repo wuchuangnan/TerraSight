@@ -8,6 +8,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { Dialog, IconButton } from "@mui/material";
 import { useCallback, useLayoutEffect, useMemo, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { useMountedState } from "react-use";
 import { makeStyles } from "tss-react/mui";
 
@@ -47,6 +48,7 @@ const selectDataSourceDialog = (store: WorkspaceContextStore) => store.dialogs.d
 
 export function DataSourceDialog(props: DataSourceDialogProps): React.JSX.Element {
   const { backdropAnimation } = props;
+  const { t } = useTranslation("openDialog");
   const { classes } = useStyles();
   const { availableSources, selectSource } = usePlayerSelection();
   const { dialogActions } = useWorkspaceActions();
@@ -111,16 +113,16 @@ export function DataSourceDialog(props: DataSourceDialogProps): React.JSX.Elemen
       }
       case "connection":
         return {
-          title: "Open new connection",
+          title: t("openNewConnection"),
           component: <Connection />,
         };
       default:
         return {
-          title: "Get started",
+          title: t("getStarted"),
           component: <Start />,
         };
     }
-  }, [activeView]);
+  }, [activeView, t]);
 
   return (
     <Dialog

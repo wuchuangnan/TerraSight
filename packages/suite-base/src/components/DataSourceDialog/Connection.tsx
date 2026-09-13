@@ -7,6 +7,7 @@
 
 import { Alert, Link, Tab, Tabs, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState, useMemo, useCallback, useLayoutEffect, FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { makeStyles } from "tss-react/mui";
 
 import { BuiltinIcon } from "@lichtblick/suite-base/components/BuiltinIcon";
@@ -89,6 +90,7 @@ const useStyles = makeStyles()((theme) => ({
 const selectDataSourceDialog = (store: WorkspaceContextStore) => store.dialogs.dataSource;
 
 export default function Connection(): React.JSX.Element {
+  const { t } = useTranslation("openDialog");
   const { classes } = useStyles();
   const theme = useTheme();
   const mdUp = useMediaQuery(theme.breakpoints.up("md"));
@@ -184,7 +186,7 @@ export default function Connection(): React.JSX.Element {
       <Stack className={classes.grid} data-testid="OpenConnection">
         <header className={classes.header}>
           <Typography variant="h3" fontWeight={600} gutterBottom>
-            Open a new connection
+            {t("openANewConnection")}
           </Typography>
         </header>
         <div className={classes.sidebar}>
@@ -269,7 +271,7 @@ export default function Connection(): React.JSX.Element {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {item.label ? `View docs for ${item.label}` : "View docs"}
+                    {item.label ? t("viewDocsFor", { source: item.label }) : t("viewDocs")}
                   </Link>
                 ))}
               </Stack>

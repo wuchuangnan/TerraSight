@@ -37,4 +37,12 @@ export const openDialog = {
   startCollaboratingDescription:
     "Make the most of your Foxglove account – whether you want to dive deep on your data or share tools with your teammates.",
   uploadToDataPlatform: "Upload to Data Platform",
+  back: "Back",
+  cancel: "Cancel",
+  open: "Open",
+  openNewConnection: "Open new connection",
+  openANewConnection: "Open a new connection",
+  getStarted: "Get started",
+  viewDocs: "View docs",
+  viewDocsFor: "View docs for {{source}}",
 };

@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import { List, ListItem, ListItemText, Typography, IconButton } from "@mui/material";
 import { useCallback, useRef, useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 import { useStylesPanelLogs } from "@lichtblick/suite-base/components/PanelLogs.style";
 import { PanelLogsProps } from "@lichtblick/suite-base/components/types";
@@ -18,6 +19,7 @@ export default function PanelLogs({
   initialHeight = MAX_HEIGHT,
   onHeightChange,
 }: PanelLogsProps): React.ReactElement {
+  const { t } = useTranslation("panel");
   const { classes } = useStylesPanelLogs();
   const [height, setHeight] = useState(initialHeight);
   const [isDragging, setIsDragging] = useState(false);
@@ -82,23 +84,23 @@ export default function PanelLogs({
       <div
         className={classes.resizeHandle}
         onMouseDown={handleMouseDown}
-        title="Drag to resize panel logs"
+        title={t("dragToResize")}
       >
         <DragIndicatorIcon className={classes.resizeIcon} />
       </div>
 
       <div className={classes.header}>
-        <Typography variant="subtitle2">Logs ({logs.length})</Typography>
+        <Typography variant="subtitle2">{t("logsCount", { count: logs.length })}</Typography>
         <div>
           <IconButton
             size="small"
             onClick={onClear}
-            title="Clear logs"
+            title={t("clearLogs")}
             disabled={logs.length === 0}
           >
             <DeleteSweep fontSize="small" />
           </IconButton>
-          <IconButton size="small" onClick={onClose} title="Close logs">
+          <IconButton size="small" onClick={onClose} title={t("closeLogs")}>
             <CloseIcon fontSize="small" />
           </IconButton>
         </div>
@@ -109,8 +111,8 @@ export default function PanelLogs({
           {logs.length === 0 ? (
             <ListItem>
               <ListItemText
-                primary="No logs yet."
-                secondary="Errors and log messages will appear here."
+                primary={t("noLogsYet")}
+                secondary={t("noLogsDescription")}
               />
             </ListItem>
           ) : (

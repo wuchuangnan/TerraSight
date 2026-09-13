@@ -29,6 +29,7 @@ import {
 } from "@fluentui/react-icons";
 import { Tooltip } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Time, compare } from "@lichtblick/rostime";
 import { CreateEventDialog } from "@lichtblick/suite-base/components/CreateEventDialog";
@@ -81,6 +82,7 @@ export default function PlaybackControls({
   isPlaying,
   getTimeInfo,
 }: PlaybackControlsProps): React.JSX.Element {
+  const { t } = useTranslation("playback");
   const presence = useMessagePipeline(selectPresence);
 
   const { classes, cx } = useStyles();
@@ -160,7 +162,7 @@ export default function PlaybackControls({
             {currentUserType !== "unauthenticated" && eventsSupported && (
               <HoverableIconButton
                 size="small"
-                title="Create event"
+                title={t("createEvent")}
                 icon={<EventOutlinedIcon />}
                 activeIcon={<EventIcon />}
                 onClick={toggleCreateEventDialog}
@@ -195,7 +197,7 @@ export default function PlaybackControls({
             <HoverableIconButton
               disabled={disableControls}
               size="small"
-              title="Seek backward"
+              title={t("seekBackward")}
               icon={<Previous20Regular />}
               activeIcon={<Previous20Filled />}
               onClick={() => {
@@ -206,7 +208,7 @@ export default function PlaybackControls({
             <HoverableIconButton
               disabled={disableControls}
               size="small"
-              title={isPlaying ? "Pause" : "Play"}
+              title={isPlaying ? t("pause") : t("play")}
               onClick={togglePlayPause}
               icon={isPlaying ? <Pause20Regular /> : <Play20Regular />}
               activeIcon={isPlaying ? <Pause20Filled /> : <Play20Filled />}
@@ -215,7 +217,7 @@ export default function PlaybackControls({
             <HoverableIconButton
               disabled={disableControls}
               size="small"
-              title="Seek forward"
+              title={t("seekForward")}
               icon={<Next20Regular />}
               activeIcon={<Next20Filled />}
               onClick={() => {
@@ -228,7 +230,7 @@ export default function PlaybackControls({
             <SyncInstanceToggle />
             <HoverableIconButton
               size="small"
-              title="Loop playback"
+              title={t("loopPlayback")}
               color={repeat ? "primary" : "inherit"}
               onClick={toggleRepeat}
               icon={repeat ? <ArrowRepeatAll20Regular /> : <ArrowRepeatAllOff20Regular />}

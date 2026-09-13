@@ -20,6 +20,7 @@ import {
   inputBaseClasses,
 } from "@mui/material";
 import { useState, useCallback, useMemo, useEffect, MouseEvent, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { makeStyles } from "tss-react/mui";
 
 import { Time, isTimeInRangeInclusive } from "@lichtblick/rostime";
@@ -105,6 +106,7 @@ function PlaybackTimeMethodMenu({
   timeOfDayString?: string;
   setTimeFormat: (format: TimeDisplayMethod) => Promise<void>;
 }): React.JSX.Element {
+  const { t } = useTranslation("playback");
   const [anchorEl, setAnchorEl] = useState<undefined | HTMLElement>(undefined);
   const open = Boolean(anchorEl);
 
@@ -150,8 +152,8 @@ function PlaybackTimeMethodMenu({
         }}
       >
         {[
-          { key: "TOD", label: timeOfDayString ?? "Time of Day" },
-          { key: "SEC", label: timeRawString ?? "Seconds" },
+          { key: "TOD", label: timeOfDayString ?? t("timeOfDay") },
+          { key: "SEC", label: timeRawString ?? t("seconds") },
         ].map((option) => (
           <MenuItem
             key={option.key}
@@ -193,6 +195,7 @@ export function UnconnectedPlaybackTimeDisplay({
   onPause,
   isPlaying,
 }: PlaybackTimeDisplayMethodProps): React.JSX.Element {
+  const { t } = useTranslation("playback");
   const { classes, cx } = useStyles({ timeDisplayMethod: appTimeFormat.timeFormat });
   const timeOutID = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
@@ -272,7 +275,7 @@ export function UnconnectedPlaybackTimeDisplay({
         <form onSubmit={onSubmit} style={{ width: "100%" }}>
           <TextField
             className={cx(classes.textField, { [classes.textFieldError]: hasError })}
-            aria-label="Playback Time Method"
+            aria-label={t("playbackTimeMethod")}
             data-testid="PlaybackTime-text"
             value={isEditing ? inputText : currentTimeString}
             error={hasError}

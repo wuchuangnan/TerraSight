@@ -24,6 +24,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useTranslation } from "react-i18next";
 import {
   getNodeAtPath,
   getOtherBranch,
@@ -86,6 +87,7 @@ export default function Panel<
 ): ComponentType<GenericPanelProps<Config> & Omit<PanelProps, "config" | "saveConfig">> &
   PanelStatics<Config> {
   function ConnectedPanel(props: GenericPanelProps<Config>) {
+    const { t } = useTranslation("panel");
     const [logs, setLogs] = useState<PanelLog[]>([]);
     const [showLogs, setShowLogs] = useState(false);
 
@@ -491,13 +493,13 @@ export default function Panel<
         overlayProps.actions = [
           {
             key: "group",
-            text: "Group in tab",
+            text: t("groupInTab"),
             icon: <TabDesktop20Regular />,
             onClick: groupPanels,
           },
           {
             key: "create-tabs",
-            text: "Create tabs",
+            text: t("createTabs"),
             icon: (
               <>
                 <span className={classes.tabCount}>
@@ -518,7 +520,7 @@ export default function Panel<
         overlayProps.actions = [
           {
             key: "splitDown",
-            text: "Split down",
+            text: t("splitDown"),
             icon: <SplitHorizontal20Regular />,
             onClick: () => {
               split(childId, "column");
@@ -526,7 +528,7 @@ export default function Panel<
           },
           {
             key: "splitRight",
-            text: "Split right",
+            text: t("splitRight"),
             icon: <SplitVertical20Regular />,
             onClick: () => {
               split(childId, "row");
@@ -534,7 +536,7 @@ export default function Panel<
           },
           {
             key: "remove",
-            text: "Remove",
+            text: t("remove"),
             icon: <Delete20Regular />,
             color: "error",
             onClick: removePanel,
@@ -557,6 +559,7 @@ export default function Panel<
       removePanel,
       setSelectedPanelIds,
       split,
+      t,
       type,
     ]);
 

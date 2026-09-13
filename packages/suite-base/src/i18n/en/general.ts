@@ -11,4 +11,12 @@ export const general = {
   learnMore: "Learn more",
   noDefaultLayoutParameter:
     "The layout '{{layoutName}}' specified in the app parameters does not exist.",
+  dropFileHere: "Drop a file here",
+  fileFormatNotSupported: "The file format is not supported.",
+  launchTitle: "Launch Lichtblick",
+  launchWeb: "Web",
+  launchWebSecondary: "Requires Chrome v76+",
+  launchDesktop: "Desktop App",
+  launchDesktopSecondary: "For Linux, Windows, and macOS",
+  rememberPreference: "Remember my preference",
 };

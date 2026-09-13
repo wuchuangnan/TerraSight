@@ -14,6 +14,8 @@
 //   found at http://www.apache.org/licenses/LICENSE-2.0
 //   You may not use this file except in compliance with the License.
 
+import i18n from "i18next";
+
 import { initI18n } from "@lichtblick/suite-base/i18n";
 import {
   setupMockSendNotification,
@@ -47,6 +49,9 @@ const consoleWarnMock = (console.warn = jest.fn());
 
 beforeAll(async () => {
   await initI18n();
+  // The language detector picks up the machine locale via navigator.language;
+  // pin tests to English so assertions are independent of the dev machine.
+  await i18n.changeLanguage("en");
 });
 
 beforeEach(() => {

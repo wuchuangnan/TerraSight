@@ -32,6 +32,8 @@ export const panels = {
   publishDescription: "Publish messages to the data source (live connections only).",
   rawMessages: "Raw Messages",
   rawMessagesDescription: "Inspect topic messages.",
+  rawMessagesVirtual: "Raw Messages (Virtualized)",
+  rawMessagesVirtualDescription: "Inspect topic messages with a virtualized list for large topics.",
   ROSDiagnosticsDetail: "Diagnostics – Detail (ROS)",
   ROSDiagnosticsDetailDescription:
     "Display ROS DiagnosticArray messages for a specific hardware_id.",

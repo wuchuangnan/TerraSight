@@ -7,6 +7,7 @@
 
 import { Button, Link } from "@mui/material";
 import { Component, ErrorInfo, PropsWithChildren, ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 import ErrorDisplay from "@lichtblick/suite-base/components/ErrorDisplay";
 import Stack from "@lichtblick/suite-base/components/Stack";
@@ -16,6 +17,60 @@ import {
 } from "@lichtblick/suite-base/components/types";
 import { reportError } from "@lichtblick/suite-base/reportError";
 import { AppError } from "@lichtblick/suite-base/util/errors";
+
+type PanelErrorViewProps = {
+  error: Error;
+  errorInfo?: ErrorInfo;
+  showErrorDetails?: boolean;
+  hideErrorSourceLocations?: boolean;
+  onDismiss: () => void;
+  onResetPanel: () => void;
+  onRemovePanel: () => void;
+};
+
+// Function component so the error view can use the translation hook
+function PanelErrorView(props: PanelErrorViewProps): ReactNode {
+  const { t } = useTranslation("panel");
+  return (
+    <ErrorDisplay
+      title={t("errorTitle")}
+      error={props.error}
+      errorInfo={props.errorInfo}
+      showErrorDetails={props.showErrorDetails}
+      hideErrorSourceLocations={props.hideErrorSourceLocations}
+      content={
+        <p>
+          {t("errorIntro")}{" "}
+          <Link color="inherit" onClick={props.onDismiss}>
+            {t("dismissThisError")}
+          </Link>{" "}
+          {t("errorOutro")}
+        </p>
+      }
+      actions={
+        <Stack direction="row-reverse" gap={1}>
+          <Button variant="outlined" color="secondary" onClick={props.onDismiss}>
+            {t("dismiss")}
+          </Button>
+          <Button
+            variant="outlined"
+            title={t("resetPanelTooltip")}
+            color="error"
+            onClick={() => {
+              props.onDismiss();
+              props.onResetPanel();
+            }}
+          >
+            {t("resetPanel")}
+          </Button>
+          <Button variant="text" title={t("removePanelTooltip")} color="error" onClick={props.onRemovePanel}>
+            {t("removePanel")}
+          </Button>
+        </Stack>
+      }
+    />
+  );
+}
 
 export default class PanelErrorBoundary extends Component<
   PropsWithChildren<PanelErrorBoundaryProps>,
@@ -37,60 +92,16 @@ export default class PanelErrorBoundary extends Component<
   public override render(): ReactNode {
     if (this.state.currentError) {
       return (
-        <ErrorDisplay
-          title="This panel encountered an unexpected error"
+        <PanelErrorView
           error={this.state.currentError.error}
           errorInfo={this.state.currentError.errorInfo}
           showErrorDetails={this.props.showErrorDetails}
           hideErrorSourceLocations={this.props.hideErrorSourceLocations}
-          content={
-            <p>
-              Something went wrong in this panel.{" "}
-              <Link
-                color="inherit"
-                onClick={() => {
-                  this.setState({ currentError: undefined });
-                }}
-              >
-                Dismiss this error
-              </Link>{" "}
-              to continue using this panel. If the issue persists, try resetting the panel.
-            </p>
-          }
-          actions={
-            <>
-              <Stack direction="row-reverse" gap={1}>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={() => {
-                    this.setState({ currentError: undefined });
-                  }}
-                >
-                  Dismiss
-                </Button>
-                <Button
-                  variant="outlined"
-                  title="Reset panel settings to default values"
-                  color="error"
-                  onClick={() => {
-                    this.setState({ currentError: undefined });
-                    this.props.onResetPanel();
-                  }}
-                >
-                  Reset Panel
-                </Button>
-                <Button
-                  variant="text"
-                  title="Remove this panel from the layout"
-                  color="error"
-                  onClick={this.props.onRemovePanel}
-                >
-                  Remove Panel
-                </Button>
-              </Stack>
-            </>
-          }
+          onDismiss={() => {
+            this.setState({ currentError: undefined });
+          }}
+          onResetPanel={this.props.onResetPanel}
+          onRemovePanel={this.props.onRemovePanel}
         />
       );
     }

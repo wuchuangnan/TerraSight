@@ -21,6 +21,7 @@ import * as _ from "lodash-es";
 import moment from "moment";
 import { useSnackbar } from "notistack";
 import { useCallback, useEffect, useLayoutEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import useAsyncFn from "react-use/lib/useAsyncFn";
 
 import Logger from "@lichtblick/log";
@@ -65,6 +66,7 @@ export default function LayoutBrowser({
   menuClose?: () => void;
   currentDateForStorybook?: Date;
 }>): React.JSX.Element {
+  const { t } = useTranslation("layouts");
   const { classes } = useStyles();
   const { signIn } = useCurrentUser();
   const { enqueueSnackbar } = useSnackbar();
@@ -145,7 +147,7 @@ export default function LayoutBrowser({
             const layout = await layoutManager.getLayout(id as LayoutID);
             if (layout) {
               await layoutManager.saveNewLayout({
-                name: `${layout.name} copy`,
+                name: t("nameCopy", { name: layout.name }),
                 data: layout.working?.data ?? layout.baseline.data,
                 permission: "CREATOR_WRITE",
               });
@@ -161,7 +163,7 @@ export default function LayoutBrowser({
         }
         dispatch({ type: "shift-multi-action" });
       } catch (err: unknown) {
-        enqueueSnackbar(`Error processing layouts: ${(err as Error).message}`, {
+        enqueueSnackbar(t("errorProcessingLayouts", { message: (err as Error).message }), {
           variant: "error",
         });
         dispatch({ type: "clear-multi-action" });
@@ -171,7 +173,7 @@ export default function LayoutBrowser({
     processAction().catch((err: unknown) => {
       log.error(err);
     });
-  }, [dispatch, enqueueSnackbar, layoutManager, state.multiAction]);
+  }, [dispatch, enqueueSnackbar, layoutManager, state.multiAction, t]);
 
   useEffect(() => {
     const listener = () => void reloadLayouts();
@@ -207,9 +209,10 @@ export default function LayoutBrowser({
   }, [setSharedSectionExpanded]);
 
   const createNewLayout = useCallbackWithToast(async () => {
-    const name = `Unnamed layout ${moment(currentDateForStorybook).format("l")} at ${moment(
-      currentDateForStorybook,
-    ).format("LT")}`;
+    const name = t("unnamedLayout", {
+      date: moment(currentDateForStorybook).format("l"),
+      time: moment(currentDateForStorybook).format("LT"),
+    });
     const layoutData: Omit<LayoutData, "name" | "id"> = {
       configById: {},
       globalVariables: {},
@@ -231,15 +234,16 @@ export default function LayoutBrowser({
     onSelectLayout,
     setPersonalSectionExpanded,
     analytics,
+    t,
   ]);
 
   const onShareLayout = useCallbackWithToast(
     async (item: Layout) => {
       const name = await prompt({
-        title: "Share a copy with your organization",
-        subText: "Shared layouts can be used and changed by other members of your organization.",
+        title: t("shareCopyTitle"),
+        subText: t("shareCopySubText"),
         initialValue: item.name,
-        label: "Layout name",
+        label: t("layoutName"),
       });
       if (name != undefined) {
         const newLayout = await layoutManager.saveNewLayout({
@@ -252,14 +256,14 @@ export default function LayoutBrowser({
         await onSelectLayout(newLayout);
       }
     },
-    [analytics, layoutManager, onSelectLayout, prompt, setSharedSectionExpanded],
+    [analytics, layoutManager, onSelectLayout, prompt, setSharedSectionExpanded, t],
   );
 
   const onMakePersonalCopy = useCallbackWithToast(
     async (item: Layout) => {
       const newLayout = await layoutManager.makePersonalCopy({
         id: item.id,
-        name: `${item.name} copy`,
+        name: t("nameCopy", { name: item.name }),
       });
       setPersonalSectionExpanded(true);
       await onSelectLayout(newLayout);
@@ -268,7 +272,7 @@ export default function LayoutBrowser({
         syncStatus: item.syncInfo?.status,
       });
     },
-    [analytics, layoutManager, onSelectLayout, setPersonalSectionExpanded],
+    [analytics, layoutManager, onSelectLayout, setPersonalSectionExpanded, t],
   );
 
   const showSignInPrompt =
@@ -284,7 +288,7 @@ export default function LayoutBrowser({
 
   return (
     <SidebarContent
-      title="Layouts"
+      title={t("layouts")}
       disablePadding
       disableToolbar={enableNewTopNav}
       trailingItems={[
@@ -294,7 +298,7 @@ export default function LayoutBrowser({
           </Stack>
         ),
         (!state.online || state.error != undefined) && (
-          <IconButton color="primary" key="offline" disabled title="Offline">
+          <IconButton color="primary" key="offline" disabled title={t("offline")}>
             <CloudOffIcon />
           </IconButton>
         ),
@@ -302,9 +306,9 @@ export default function LayoutBrowser({
           color="primary"
           key="add-layout"
           onClick={createNewLayout}
-          aria-label="Create new layout"
+          aria-label={t("createNewLayout")}
           data-testid="add-layout"
-          title="Create new layout"
+          title={t("createNewLayout")}
         >
           <AddIcon />
         </IconButton>,
@@ -312,8 +316,8 @@ export default function LayoutBrowser({
           color="primary"
           key="import-layout"
           onClick={importLayout}
-          aria-label="Import layout"
-          title="Import layout"
+          aria-label={t("importLayout")}
+          title={t("importLayout")}
         >
           <FileOpenOutlinedIcon />
         </IconButton>,
@@ -332,14 +336,14 @@ export default function LayoutBrowser({
               <ListItem disablePadding>
                 <ListItemButton onClick={createNewLayout}>
                   <ListItemText data-testid="create-new-layout" disableTypography>
-                    Create new layout
+                    {t("createNewLayout")}
                   </ListItemText>
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton onClick={importLayout}>
                   <ListItemText data-testid="import-layout" disableTypography>
-                    Import from file…
+                    {t("importFromFile")}
                   </ListItemText>
                 </ListItemButton>
               </ListItem>
@@ -349,10 +353,10 @@ export default function LayoutBrowser({
         )}
         <LayoutSection
           disablePadding={enableNewTopNav}
-          title={layoutManager.supportsSharing ? "Personal" : undefined}
+          title={layoutManager.supportsSharing ? t("personal") : undefined}
           expanded={personalExpanded}
           onToggleExpanded={togglePersonalExpanded}
-          emptyText="Add a new layout to get started with Lichtblick!"
+          emptyText={t("personalEmptyText")}
           items={layouts.value?.personal}
           anySelectedModifiedLayouts={anySelectedModifiedLayouts}
           multiSelectedIds={state.selectedIds}
@@ -370,10 +374,10 @@ export default function LayoutBrowser({
         {layoutManager.supportsSharing && (
           <LayoutSection
             disablePadding={enableNewTopNav}
-            title="Organization"
+            title={t("organization")}
             expanded={sharedExpanded}
             onToggleExpanded={toggleSharedExpanded}
-            emptyText="Your organization doesn’t have any shared layouts yet. Share a layout to collaborate with others."
+            emptyText={t("organizationEmptyText")}
             items={layouts.value?.shared}
             anySelectedModifiedLayouts={anySelectedModifiedLayouts}
             multiSelectedIds={state.selectedIds}

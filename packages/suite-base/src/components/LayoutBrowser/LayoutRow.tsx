@@ -27,6 +27,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { useMountedState } from "react-use";
 
 import { useLayoutManager } from "@lichtblick/suite-base/context/LayoutManagerContext";
@@ -65,6 +66,7 @@ export default React.memo(function LayoutRow({
   onRevert: (item: Layout) => void;
   onMakePersonalCopy: (item: Layout) => void;
 }): React.JSX.Element {
+  const { t } = useTranslation("layouts");
   const isMounted = useMountedState();
   const [confirm, confirmModal] = useConfirm();
   const layoutManager = useLayoutManager();
@@ -99,16 +101,16 @@ export default React.memo(function LayoutRow({
 
   const confirmRevert = useCallback(async () => {
     const response = await confirm({
-      title: multiSelection ? `Revert layouts` : `Revert “${layout.name}”?`,
-      prompt: "Your changes will be permantly discarded. This cannot be undone.",
-      ok: "Discard changes",
+      title: multiSelection ? t("revertTitleMulti") : t("revertTitle", { name: layout.name }),
+      prompt: t("revertPrompt"),
+      ok: t("discardChanges"),
       variant: "danger",
     });
     if (response !== "ok") {
       return;
     }
     onRevert(layout);
-  }, [confirm, layout, multiSelection, onRevert]);
+  }, [confirm, layout, multiSelection, onRevert, t]);
 
   const renameAction = useCallback(() => {
     setNameFieldValue(layout.name);
@@ -163,22 +165,20 @@ export default React.memo(function LayoutRow({
 
   const confirmDelete = useCallback(() => {
     const layoutWarning =
-      !multiSelection && layoutIsShared(layout)
-        ? "Organization members will no longer be able to access this layout. "
-        : "";
-    const prompt = `${layoutWarning}This action cannot be undone.`;
-    const title = multiSelection ? "Delete selected layouts?" : `Delete “${layout.name}”?`;
+      !multiSelection && layoutIsShared(layout) ? t("orgNoAccessWarning") : "";
+    const prompt = `${layoutWarning}${t("deleteCannotBeUndone")}`;
+    const title = multiSelection ? t("deleteTitleMulti") : t("deleteTitle", { name: layout.name });
     void confirm({
       title,
       prompt,
-      ok: "Delete",
+      ok: t("delete"),
       variant: "danger",
     }).then((response) => {
       if (response === "ok" && isMounted()) {
         onDelete(layout);
       }
     });
-  }, [confirm, isMounted, layout, multiSelection, onDelete]);
+  }, [confirm, isMounted, layout, multiSelection, onDelete, t]);
 
   const handleContextMenu = useCallback((event: React.MouseEvent) => {
     event.preventDefault();
@@ -205,11 +205,11 @@ export default React.memo(function LayoutRow({
     {
       type: "item",
       key: "rename",
-      text: "Rename",
+      text: t("rename"),
       onClick: renameAction,
       "data-testid": "rename-layout",
       disabled: (layoutIsShared(layout) && !isOnline) || multiSelection,
-      secondaryText: layoutIsShared(layout) && !isOnline ? "Offline" : undefined,
+      secondaryText: layoutIsShared(layout) && !isOnline ? t("offline") : undefined,
     },
     // For shared layouts, "Make a personal copy" is always available
     // For personal layouts, "Duplicate" is available if no modifications
@@ -218,8 +218,8 @@ export default React.memo(function LayoutRow({
       key: "duplicate",
       text:
         layoutManager.supportsSharing && layoutIsShared(layout)
-          ? "Make a personal copy"
-          : "Duplicate",
+          ? t("makePersonalCopy")
+          : t("duplicate"),
       onClick: duplicateAction,
       "data-testid": "duplicate-layout",
     },
@@ -227,15 +227,15 @@ export default React.memo(function LayoutRow({
       !layoutIsShared(layout) && {
         type: "item",
         key: "share",
-        text: "Share with team…",
+        text: t("shareWithTeam"),
         onClick: shareAction,
         disabled: !isOnline || multiSelection,
-        secondaryText: !isOnline ? "Offline" : undefined,
+        secondaryText: !isOnline ? t("offline") : undefined,
       },
     {
       type: "item",
       key: "export",
-      text: "Export…",
+      text: t("export"),
       disabled: multiSelection,
       onClick: exportAction,
       "data-testid": "export-layout",
@@ -244,7 +244,7 @@ export default React.memo(function LayoutRow({
     {
       type: "item",
       key: "delete",
-      text: "Delete",
+      text: t("delete"),
       onClick: confirmDelete,
       "data-testid": "delete-layout",
     },
@@ -255,15 +255,15 @@ export default React.memo(function LayoutRow({
       {
         type: "item",
         key: "overwrite",
-        text: "Save changes",
+        text: t("saveChanges"),
         onClick: overwriteAction,
         disabled: deletedOnServer || (layoutIsShared(layout) && !isOnline),
-        secondaryText: layoutIsShared(layout) && !isOnline ? "Offline" : undefined,
+        secondaryText: layoutIsShared(layout) && !isOnline ? t("offline") : undefined,
       },
       {
         type: "item",
         key: "revert",
-        text: "Revert",
+        text: t("revert"),
         onClick: () => {
           void confirmRevert();
         },
@@ -272,14 +272,14 @@ export default React.memo(function LayoutRow({
     ];
 
     const unsavedChangesMessage = anySelectedModifiedLayouts
-      ? "These layouts have unsaved changes"
-      : "This layout has unsaved changes";
+      ? t("unsavedChangesMulti")
+      : t("unsavedChanges");
 
     menuItems.unshift(
       {
         key: "changes",
         type: "header",
-        text: deletedOnServer ? "Someone else has deleted this layout" : unsavedChangesMessage,
+        text: deletedOnServer ? t("deletedBySomeoneElse") : unsavedChangesMessage,
       },
       ...sectionItems,
       { key: "changes_divider", type: "divider" },
