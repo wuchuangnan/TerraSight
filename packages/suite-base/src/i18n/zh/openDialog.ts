@@ -9,7 +9,7 @@ import { TypeOptions } from "i18next";
 
 export const openDialog: TypeOptions["resources"]["openDialog"] = {
   canBeShared: "与队友分享数据文件、可视化布局和自定义扩展",
-  collaborateTitle: "使用 Lichtblick 数据平台加速开发",
+  collaborateTitle: "使用 TerraSight 数据平台加速开发",
   convenientWebInterface: "使用便捷的网页界面，以闪电般的速度标记、搜索和检索数据",
   createAFreeAccount: "创建免费账户",
   dontShowThisAgain: "启动时不再显示",
@@ -18,7 +18,7 @@ export const openDialog: TypeOptions["resources"]["openDialog"] = {
   learnMore: "了解更多",
   needHelp: "需要帮助？",
   needHelpDescription: "查看我们的文档，或查看 Foxglove 博客上的教程。",
-  newToLichtblick: "第一次使用 Lichtblick？",
+  newToLichtblick: "第一次使用 TerraSight？",
   newToLichtblickDescription: "从探索样本数据集开始，或查看我们的文档。",
   openAGitHubIssue: "打开 GitHub issue",
   openConnection: "打开连接",

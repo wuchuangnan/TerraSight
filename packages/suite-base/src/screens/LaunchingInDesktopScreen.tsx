@@ -71,7 +71,7 @@ export function LaunchingInDesktopScreen(): ReactElement {
         style={{ maxWidth: 480 }}
       >
         <Typography align="center" variant="h2" fontWeight={600}>
-          Launching Lichtblick…
+          Launching TerraSight…
         </Typography>
         <Typography align="center" fontWeight={600}>
           We’ve directed you to the desktop app.
@@ -92,7 +92,7 @@ export function LaunchingInDesktopScreen(): ReactElement {
               href="https://github.com/lichtblick-suite/lichtblick/releases"
               target="_blank"
             >
-              Download Lichtblick
+              Download TerraSight
             </Link>
           </Typography>
         </Stack>

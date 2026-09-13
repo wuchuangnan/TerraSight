@@ -13,7 +13,7 @@ export const general = {
     "The layout '{{layoutName}}' specified in the app parameters does not exist.",
   dropFileHere: "Drop a file here",
   fileFormatNotSupported: "The file format is not supported.",
-  launchTitle: "Launch Lichtblick",
+  launchTitle: "Launch TerraSight",
   launchWeb: "Web",
   launchWebSecondary: "Requires Chrome v76+",
   launchDesktop: "Desktop App",

@@ -1,19 +1,19 @@
-<h1 align="center">Lichtblick</h1>
+<h1 align="center">TerraSight <span style="font-size:0.6em">TerraSight</span></h1>
 
 <div align="center">
   <a href="https://github.com/lichtblick-suite/lichtblick/stargazers"><img src="https://img.shields.io/github/stars/lichtblick-suite/lichtblick" alt="Stars Badge"/></a>
   <a href="https://github.com/lichtblick-suite/lichtblick/network/members"><img src="https://img.shields.io/github/forks/lichtblick-suite/lichtblick" alt="Forks Badge"/></a>
   <a href="https://github.com/lichtblick-suite/lichtblick/pulls"><img src="https://img.shields.io/github/issues-pr/lichtblick-suite/lichtblick" alt="Pull Requests Badge"/></a>
   <a href="https://github.com/lichtblick-suite/lichtblick/issues"><img src="https://img.shields.io/github/issues/lichtblick-suite/lichtblick" alt="Issues Badge"/></a>
-  <a href="https://github.com/lichtblick-suite/lichtblick/issues"><img src="https://img.shields.io/github/package-json/v/lichtblick-suite/lichtblick" alt="Versions Badge"/></a>
+  <a href="https://github.com/lichtblick-suite/lichtblick"><img src="https://img.shields.io/github/package-json/v/lichtblick-suite/lichtblick" alt="Versions Badge"/></a>
   <a href="https://github.com/lichtblick-suite/lichtblick/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/lichtblick-suite/lichtblick?color=2b9348"></a>
   <a href="https://opensource.org/licenses/MPL-2.0"><img src="https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg" alt="License: MPL 2.0"></a>
-  <a href="https://github.com/lichtblick-suite/lichtblick/actions/workflows/e2e-regression.yml?query=branch%3Adevelop"><img src="https://img.shields.io/github/actions/workflow/status/lichtblick-suite/lichtblick/e2e-regression.yml?branch=develop&label=E2E%20Regression%20(develop)" alt="E2E Regression (develop)"/></a>
-  <a href="https://github.com/lichtblick-suite/lichtblick/actions/workflows/e2e-regression.yml?query=branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/lichtblick-suite/lichtblick/e2e-regression.yml?branch=main&label=E2E%20Regression%20(main)" alt="E2E Regression (main)"/></a>
+  <a href="https://github.com/lichtblick-suite/lichtblick/actions/workflows/e2e-regression.yml?query=branch%3Adevelop"><img src="https://github.com/lichtblick-suite/lichtblick/actions/workflows/e2e-regression.yml/badge.svg?branch=develop&label=E2E%20Regression%20(develop)" alt="E2E Regression (develop)"/></a>
+  <a href="https://github.com/lichtblick-suite/lichtblick/actions/workflows/e2e-regression.yml?query=branch%3Amain"><img src="https://github.com/lichtblick-suite/lichtblick/actions/workflows/e2e-regression.yml/badge.svg?branch=main&label=E2E%20Regression%20(main)" alt="E2E Regression (main)"/></a>
 
   <br />
 <p  align="center">
-Lichtblick is an integrated visualization and diagnosis tool for robotics, available in your browser or as a desktop app on Linux, Windows, and macOS.
+TerraSight (TerraSight) is an integrated visualization and diagnosis tool for intelligent driving of electric loaders, based on <a href="https://github.com/lichtblick-suite/lichtblick">Lichtblick</a>. It is available in your browser or as a desktop app on Linux, Windows, and macOS.
 </p>
   <p align="center">
     <img alt="Lichtblick screenshot" src="resources/screenshot.png">

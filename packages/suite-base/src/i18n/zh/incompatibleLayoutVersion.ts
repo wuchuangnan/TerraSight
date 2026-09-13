@@ -8,7 +8,7 @@
 import { TypeOptions } from "i18next";
 
 export const incompatibleLayoutVersion: TypeOptions["resources"]["incompatibleLayoutVersion"] = {
-  desktopText: "此布局是使用较新版本的 Lichtblick 创建的。请前往以下地址更新至最新版本 ",
+  desktopText: "此布局是使用较新版本的 TerraSight 创建的。请前往以下地址更新至最新版本 ",
   title: "布局版本不兼容",
-  webText: "此布局是使用较新版本的 Lichtblick 创建的。请刷新浏览器。",
+  webText: "此布局是使用较新版本的 TerraSight 创建的。请刷新浏览器。",
 };

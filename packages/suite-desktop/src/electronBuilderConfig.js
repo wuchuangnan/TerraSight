@@ -15,7 +15,7 @@ const path = require("path");
 function makeElectronBuilderConfig(params) {
   return {
     electronVersion,
-    appId: "dev.lichtblick.suite",
+    appId: "dev.terrasight.suite",
     npmRebuild: false,
     asar: true,
     files: ["**/*", "!**/node_modules/**"],
@@ -28,8 +28,8 @@ function makeElectronBuilderConfig(params) {
     icon: path.join(__dirname, "../resources/icon/icon.icns"),
     protocols: [
       {
-        name: "lichtblick",
-        schemes: ["lichtblick"],
+        name: "terrasight",
+        schemes: ["lichtblick"], // scheme kept for deep-link compatibility
       },
     ],
     linux: {
@@ -56,7 +56,7 @@ function makeElectronBuilderConfig(params) {
         },
         {
           ext: "foxe",
-          name: "Lichtblick Extension",
+          name: "TerraSight Extension",
           mimeType: "application/zip",
         },
       ],
@@ -82,7 +82,7 @@ function makeElectronBuilderConfig(params) {
         },
         {
           ext: "foxe",
-          name: "Lichtblick Extension",
+          name: "TerraSight Extension",
           mimeType: "application/zip",
         },
       ],
@@ -133,7 +133,7 @@ function makeElectronBuilderConfig(params) {
           {
             CFBundleTypeExtensions: ["foxe"],
             CFBundleTypeIconFile: "FoxeIcon",
-            CFBundleTypeName: "Lichtblick Extension File",
+            CFBundleTypeName: "TerraSight Extension File",
             CFBundleTypeRole: "Viewer",
             LSHandlerRank: "Owner",
             CFBundleTypeIconSystemGenerated: 1,
@@ -157,7 +157,7 @@ function makeElectronBuilderConfig(params) {
           },
           {
             UTTypeConformsTo: ["public.data", "public.archive", "public.zip-archive"],
-            UTTypeDescription: "Lichtblick Extension File",
+            UTTypeDescription: "TerraSight Extension File",
             UTTypeIcons: { UTTypeIconText: "foxe" },
             UTTypeIdentifier: "dev.foxglove.extension",
             UTTypeTagSpecification: { "public.filename-extension": "foxe" },
@@ -177,11 +177,11 @@ function makeElectronBuilderConfig(params) {
       },
     },
     appx: {
-      applicationId: "LichtblickSuite",
+      applicationId: "TerraSightSuite",
       backgroundColor: "#f7def6",
-      displayName: "Lichtblick",
-      identityName: "Lichtblick.Suite",
-      publisher: "CN=Lichtblick, O=Lichtblick, L=San Francisco, S=California, C=US",
+      displayName: "TerraSight",
+      identityName: "TerraSight.Suite",
+      publisher: "CN=TerraSight, O=TerraSight",
       publisherDisplayName: "Lichtblick",
       languages: ["en-US"],
       addAutoLaunchExtension: false,

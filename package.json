@@ -3,17 +3,16 @@
   "version": "1.29.1",
   "license": "MPL-2.0",
   "private": true,
-  "productName": "Lichtblick",
-  "description": "Core components of Lichtblick",
-  "productDescription": "Lichtblick Suite",
+  "productName": "TerraSight",
+  "description": "Core components of TerraSight",
+  "productDescription": "TerraSight Suite",
   "packageManager": "yarn@4.17.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lichtblick-suite/lichtblick.git"
+    "url": "https://github.com/wuchuangnan/TerraSight.git"
   },
   "author": {
-    "name": "Lichtblick",
-    "email": "lichtblick@bmwgroup.com"
+    "name": "TerraSight"
   },
   "homepage": "https://github.com/lichtblick-suite",
   "engines": {

@@ -14,7 +14,7 @@ export const general: TypeOptions["resources"]["general"] = {
   noDefaultLayoutParameter: "应用参数中指定的布局 '{{layoutName}}' 不存在。",
   dropFileHere: "将文件拖放到此处",
   fileFormatNotSupported: "不支持的文件格式。",
-  launchTitle: "启动 Lichtblick",
+  launchTitle: "启动 TerraSight",
   launchWeb: "Web 版",
   launchWebSecondary: "需要 Chrome v76 或更高版本",
   launchDesktop: "桌面应用",

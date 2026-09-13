@@ -12,8 +12,8 @@ import { useTranslation } from "react-i18next";
 import DataSourceOption from "@lichtblick/suite-base/components/DataSourceDialog/DataSourceOption";
 import SidebarItems from "@lichtblick/suite-base/components/DataSourceDialog/SidebarItems";
 import { useStyles } from "@lichtblick/suite-base/components/DataSourceDialog/index.style";
-import LichtblickLogoText from "@lichtblick/suite-base/components/LichtblickLogoText";
 import Stack from "@lichtblick/suite-base/components/Stack";
+import TerraSightLogoText from "@lichtblick/suite-base/components/TerraSightLogoText";
 import TextMiddleTruncate from "@lichtblick/suite-base/components/TextMiddleTruncate";
 import { useAnalytics } from "@lichtblick/suite-base/context/AnalyticsContext";
 import { usePlayerSelection } from "@lichtblick/suite-base/context/PlayerSelectionContext";
@@ -63,7 +63,7 @@ export default function Start(): React.JSX.Element {
   return (
     <Stack className={classes.grid}>
       <header className={classes.header}>
-        <LichtblickLogoText color="primary" className={classes.logo} />
+        <TerraSightLogoText color="primary" className={classes.logo} />
       </header>
       <Stack className={classes.content}>
         <Stack gap={4}>

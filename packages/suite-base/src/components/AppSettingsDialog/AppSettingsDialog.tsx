@@ -34,8 +34,8 @@ import { AppSettingsTab } from "@lichtblick/suite-base/components/AppSettingsDia
 import CopyButton from "@lichtblick/suite-base/components/CopyButton";
 import { ExperimentalFeatureSettings } from "@lichtblick/suite-base/components/ExperimentalFeatureSettings";
 import ExtensionsSettings from "@lichtblick/suite-base/components/ExtensionsSettings";
-import LichtblickLogoText from "@lichtblick/suite-base/components/LichtblickLogoText";
 import Stack from "@lichtblick/suite-base/components/Stack";
+import TerraSightLogoText from "@lichtblick/suite-base/components/TerraSightLogoText";
 import { useAppContext } from "@lichtblick/suite-base/context/AppContext";
 import {
   useWorkspaceStore,
@@ -178,7 +178,7 @@ export function AppSettingsDialog(
           >
             <Stack gap={2} alignItems="flex-start">
               <header>
-                <LichtblickLogoText color="primary" className={classes.logo} />
+                <TerraSightLogoText color="primary" className={classes.logo} />
               </header>
               <Stack direction="row" alignItems="center" gap={1}>
                 <Typography variant="body2">

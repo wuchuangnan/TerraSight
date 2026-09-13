@@ -20,9 +20,9 @@ import tc from "tinycolor2";
 import { makeStyles } from "tss-react/mui";
 
 import { AppSetting } from "@lichtblick/suite-base/AppSetting";
-import { LichtblickLogo } from "@lichtblick/suite-base/components/LichtblickLogo";
 import { MemoryUseIndicator } from "@lichtblick/suite-base/components/MemoryUseIndicator";
 import Stack from "@lichtblick/suite-base/components/Stack";
+import { TerraSightLogo } from "@lichtblick/suite-base/components/TerraSightLogo";
 import { useAppContext } from "@lichtblick/suite-base/context/AppContext";
 import {
   LayoutState,
@@ -61,8 +61,8 @@ const useStyles = makeStyles<{ debugDragRegion?: boolean }, "avatar">()(
       },
       logo: {
         padding: theme.spacing(0.75, 0.5),
-        fontSize: "2rem",
-        color: theme.palette.appBar.primary,
+        fontSize: "2.25rem",
+        color: theme.palette.primary.main,
         borderRadius: 0,
 
         "svg:not(.MuiSvgIcon-root)": {
@@ -217,7 +217,7 @@ export function AppBar(props: AppBarProps): React.JSX.Element {
                   setAppMenuEl(event.currentTarget);
                 }}
               >
-                <LichtblickLogo fontSize="inherit" color="inherit" />
+                <TerraSightLogo fontSize="inherit" color="inherit" />
                 <ChevronDown12Regular
                   className={classes.dropDownIcon}
                   primaryFill={theme.palette.appBar.text}
