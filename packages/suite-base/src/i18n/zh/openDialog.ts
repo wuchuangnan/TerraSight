@@ -10,7 +10,8 @@ import { TypeOptions } from "i18next";
 export const openDialog: TypeOptions["resources"]["openDialog"] = {
   canBeShared: "与队友分享数据文件、可视化布局和自定义扩展",
   collaborateTitle: "使用 TerraSight 数据平台加速开发",
-  convenientWebInterface: "使用便捷的网页界面，以闪电般的速度标记、搜索和检索数据",
+  convenientWebInterface:
+    "使用便捷的网页界面，以闪电般的速度标记、搜索和检索数据",
   createAFreeAccount: "创建免费账户",
   dontShowThisAgain: "启动时不再显示",
   exploreSampleData: "探索样本数据",

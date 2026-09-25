@@ -6,7 +6,8 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 export const openDialog = {
-  canBeShared: "Share data files, visualization layouts, and custom extensions with teammates",
+  canBeShared:
+    "Share data files, visualization layouts, and custom extensions with teammates",
   collaborateTitle: "Accelerate development with TerraSight Data Platform",
   convenientWebInterface:
     "Use a convenient web interface to tag, search, and retrieve data at lightning speed",
@@ -16,7 +17,8 @@ export const openDialog = {
   viewDocumentation: "View documentation",
   learnMore: "Learn more",
   needHelp: "Need help?",
-  needHelpDescription: "View our documentation, or check out the tutorials on the Foxglove blog.",
+  needHelpDescription:
+    "View our documentation, or check out the tutorials on the Foxglove blog.",
   newToLichtblick: "New to TerraSight?",
   newToLichtblickDescription:
     "Start by exploring a sample dataset or checking out our documentation.",
@@ -25,9 +27,11 @@ export const openDialog = {
   openConnectionDescription: "Connect to a live robot or server.",
   openDataSource: "Open data source",
   openLocalFiles: "Open local file(s)...",
-  openLocalFileDescription: "Visualize data directly from your local filesystem.",
+  openLocalFileDescription:
+    "Visualize data directly from your local filesystem.",
   openUrl: "Upload and share data",
-  openUrlDescription: "Use Foxglove Data Platform to share data with your team.",
+  openUrlDescription:
+    "Use Foxglove Data Platform to share data with your team.",
   recentDataSources: "Recent data sources",
   secureStorageOfData: "Securely store petabytes of ROS or custom data",
   seeTutorials: "See tutorials",

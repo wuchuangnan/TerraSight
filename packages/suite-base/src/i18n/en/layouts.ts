@@ -18,7 +18,8 @@ export const layouts = {
   organizationEmptyText:
     "Your organization doesn’t have any shared layouts yet. Share a layout to collaborate with others.",
   shareCopyTitle: "Share a copy with your organization",
-  shareCopySubText: "Shared layouts can be used and changed by other members of your organization.",
+  shareCopySubText:
+    "Shared layouts can be used and changed by other members of your organization.",
   layoutName: "Layout name",
   unnamedLayout: "Unnamed layout {{date}} at {{time}}",
   nameCopy: "{{name}} copy",
@@ -35,12 +36,14 @@ export const layouts = {
   unsavedChanges: "This layout has unsaved changes",
   unsavedChangesMulti: "These layouts have unsaved changes",
   deletedBySomeoneElse: "Someone else has deleted this layout",
-  orgNoAccessWarning: "Organization members will no longer be able to access this layout. ",
+  orgNoAccessWarning:
+    "Organization members will no longer be able to access this layout. ",
   deleteCannotBeUndone: "This action cannot be undone.",
   deleteTitle: "Delete “{{name}}”?",
   deleteTitleMulti: "Delete selected layouts?",
   revertTitle: "Revert “{{name}}”?",
   revertTitleMulti: "Revert layouts",
-  revertPrompt: "Your changes will be permanently discarded. This cannot be undone.",
+  revertPrompt:
+    "Your changes will be permanently discarded. This cannot be undone.",
   discardChanges: "Discard changes",
 };

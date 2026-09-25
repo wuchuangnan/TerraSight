@@ -25,7 +25,8 @@ export const threeDee: TypeOptions["resources"]["threeDee"] = {
   age: "陈旧度",
   axisScale: "轴比例",
   displayFrame: "展示参考系",
-  displayFrameHelp: "相机所处的坐标系。相机的位置和方向将相对于该坐标系的原点。",
+  displayFrameHelp:
+    "相机所处的坐标系。相机的位置和方向将相对于该坐标系的原点。",
   editable: "可编辑",
   enablePreloading: "启用预加载",
   enablePreloadingTooltip: "请注意，开启预加载可能会影响性能。",
@@ -59,7 +60,8 @@ export const threeDee: TypeOptions["resources"]["threeDee"] = {
   background: "背景",
   debugPicking: "调试拾取",
   ignoreColladaUpAxis: "忽略 COLLADA 的 <up_axis>",
-  ignoreColladaUpAxisHelp: "通过忽略 COLLADA 文件中的 <up_axis> 标记，匹配 rviz 的行为",
+  ignoreColladaUpAxisHelp:
+    "通过忽略 COLLADA 文件中的 <up_axis> 标记，匹配 rviz 的行为",
   labelScale: "标签比例",
   labelScaleHelp: "应用于所有标签的比例因子",
   meshUpAxis: "网格上轴",

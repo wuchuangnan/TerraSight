@@ -25,6 +25,7 @@ export * from "./panelSettings";
 export * from "./panelToolbar";
 export * from "./playback";
 export * from "./plot";
+export * from "./recording";
 export * from "./alertsList";
 export * from "./settingsEditor";
 export * from "./stateTransitions";

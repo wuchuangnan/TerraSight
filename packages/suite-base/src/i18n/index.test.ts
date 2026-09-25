@@ -5,7 +5,13 @@
 
 import i18n from "i18next";
 
-import { defaultNS, initI18n, Language, sharedI18nObject, translations } from "./index";
+import {
+  defaultNS,
+  initI18n,
+  Language,
+  sharedI18nObject,
+  translations,
+} from "./index";
 import { SESSION_STORAGE_I18N_LANGUAGE } from "../constants/browserStorageKeys";
 
 const mockLocalStorage = {
@@ -90,8 +96,12 @@ describe("i18n module", () => {
 
         // Then
         expect(i18n.options.detection?.caches).toContain("localStorage");
-        expect(i18n.options.detection?.lookupLocalStorage).toBe(SESSION_STORAGE_I18N_LANGUAGE);
-        expect(i18n.options.detection?.lookupSessionStorage).toBe(SESSION_STORAGE_I18N_LANGUAGE);
+        expect(i18n.options.detection?.lookupLocalStorage).toBe(
+          SESSION_STORAGE_I18N_LANGUAGE,
+        );
+        expect(i18n.options.detection?.lookupSessionStorage).toBe(
+          SESSION_STORAGE_I18N_LANGUAGE,
+        );
       });
     });
 

@@ -7,7 +7,8 @@
 
 import { TypeOptions } from "i18next";
 
-export const panelConfigVersionGuard: TypeOptions["resources"]["panelConfigVersionGuard"] = {
-  instructions: "请更新至最新版本的应用程序。",
-  warning: "该布局需要该面板的更高版本。",
-};
+export const panelConfigVersionGuard: TypeOptions["resources"]["panelConfigVersionGuard"] =
+  {
+    instructions: "请更新至最新版本的应用程序。",
+    warning: "该布局需要该面板的更高版本。",
+  };
