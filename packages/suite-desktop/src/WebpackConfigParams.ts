@@ -13,7 +13,7 @@ export type WebpackConfigParams = {
     description: string;
     productDescription: string;
     license: string;
-    author: { name: string; email: string };
+    author: { name: string; email?: string };
     homepage: string;
   };
 

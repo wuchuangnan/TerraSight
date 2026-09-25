@@ -5,11 +5,24 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
-import { app, BrowserWindow, ipcMain, Menu, nativeTheme, session } from "electron";
+import {
+  app,
+  BrowserWindow,
+  dialog,
+  ipcMain,
+  Menu,
+  nativeTheme,
+  session,
+} from "electron";
+import { writeFile } from "fs/promises";
+import { join as pathJoin } from "path";
 
 import Logger from "@lichtblick/log";
 import { AppSetting } from "@lichtblick/suite-base/src/AppSetting";
-import { initI18n, sharedI18nObject as i18n } from "@lichtblick/suite-base/src/i18n";
+import {
+  initI18n,
+  sharedI18nObject as i18n,
+} from "@lichtblick/suite-base/src/i18n";
 
 import StudioAppUpdater from "./StudioAppUpdater";
 import StudioWindow from "./StudioWindow";
@@ -40,9 +53,14 @@ if (homeOverride != undefined) {
 }
 
 function updateNativeColorScheme() {
-  const colorScheme = getAppSetting<string>(AppSetting.COLOR_SCHEME) ?? "system";
+  const colorScheme =
+    getAppSetting<string>(AppSetting.COLOR_SCHEME) ?? "system";
   nativeTheme.themeSource =
-    colorScheme === "dark" ? "dark" : colorScheme === "light" ? "light" : "system";
+    colorScheme === "dark"
+      ? "dark"
+      : colorScheme === "light"
+        ? "light"
+        : "system";
 }
 
 async function updateLanguage() {
@@ -57,7 +75,9 @@ export async function main(): Promise<void> {
   await updateLanguage();
 
   // Allow integration tests to override the userData directory
-  const userDataOverride = process.argv.find((arg) => arg.startsWith("--user-data-dir="));
+  const userDataOverride = process.argv.find((arg) =>
+    arg.startsWith("--user-data-dir="),
+  );
   if (userDataOverride != undefined) {
     app.setPath("userData", userDataOverride.split("=")[1]!);
   }
@@ -82,7 +102,9 @@ export async function main(): Promise<void> {
 
   // Suppress Electron Security Warning in development
   // See the comment for the webSecurity setting on browser window
-  process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = isProduction ? "false" : "true";
+  process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = isProduction
+    ? "false"
+    : "true";
 
   // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 
@@ -93,7 +115,9 @@ export async function main(): Promise<void> {
   }
 
   // Check if --force-multiple-windows` is set
-  const forceMultipleWindows = process.argv.some((arg) => arg === "--force-multiple-windows");
+  const forceMultipleWindows = process.argv.some(
+    (arg) => arg === "--force-multiple-windows",
+  );
 
   // If another instance of the app is already open, this call triggers the "second-instance" event
   // in the original instance and returns false.
@@ -104,7 +128,9 @@ export async function main(): Promise<void> {
         `An instance of ${LICHTBLICK_PRODUCT_NAME} is already running. Forcing a new window to run in this instance.`,
       );
     } else {
-      log.info(`Another instance of ${LICHTBLICK_PRODUCT_NAME} is already running. Quitting.`);
+      log.info(
+        `Another instance of ${LICHTBLICK_PRODUCT_NAME} is already running. Quitting.`,
+      );
       app.quit();
     }
     return;
@@ -116,7 +142,9 @@ export async function main(): Promise<void> {
     log.debug("Received arguments from second app instance:", argv);
 
     if (forceMultipleWindows) {
-      log.debug("second-instance: Forcing a new window to run in this instance.");
+      log.debug(
+        "second-instance: Forcing a new window to run in this instance.",
+      );
       createNewWindow(argv);
       return;
     }
@@ -126,7 +154,9 @@ export async function main(): Promise<void> {
     someWindow?.restore();
     someWindow?.focus();
 
-    const deepLinks = argv.slice(1).filter((arg) => arg.startsWith("lichtblick://"));
+    const deepLinks = argv
+      .slice(1)
+      .filter((arg) => arg.startsWith("lichtblick://"));
     for (const link of deepLinks) {
       app.emit("open-url", { preventDefault() {} }, link);
     }
@@ -142,7 +172,9 @@ export async function main(): Promise<void> {
     // When being asked to open a second instance with no files or deep links then open a blank new
     // window.
     if (files.length === 0 && deepLinks.length === 0) {
-      log.debug("second-instance: No files or deeplinks. Opening a new window.");
+      log.debug(
+        "second-instance: No files or deeplinks. Opening a new window.",
+      );
       new StudioWindow().load();
     }
   });
@@ -169,7 +201,10 @@ export async function main(): Promise<void> {
     if (preloaderFileInputIsReady) {
       const focusedWindow = BrowserWindow.getFocusedWindow();
       if (focusedWindow) {
-        await injectFilesToOpen(focusedWindow.webContents.debugger, filesToOpen);
+        await injectFilesToOpen(
+          focusedWindow.webContents.debugger,
+          filesToOpen,
+        );
       } else {
         // On MacOS the user may have closed all the windows so we need to open a new window
         new StudioWindow().load();
@@ -187,10 +222,13 @@ export async function main(): Promise<void> {
     preloaderFileInputIsReady = true;
   });
 
-  ipcMain.handle("setRepresentedFilename", (ev, filePath: string | undefined) => {
-    const browserWindow = BrowserWindow.fromId(ev.sender.id);
-    browserWindow?.setRepresentedFilename(filePath ?? "");
-  });
+  ipcMain.handle(
+    "setRepresentedFilename",
+    (ev, filePath: string | undefined) => {
+      const browserWindow = BrowserWindow.fromId(ev.sender.id);
+      browserWindow?.setRepresentedFilename(filePath ?? "");
+    },
+  );
 
   const openUrls: string[] = [];
 
@@ -234,11 +272,99 @@ export async function main(): Promise<void> {
     void updateLanguage();
   });
 
+  ipcMain.handle(
+    "saveRecording",
+    async (ev, defaultFileName: string, data: Uint8Array) => {
+      const browserWindow = BrowserWindow.fromId(ev.sender.id);
+      const options: Electron.SaveDialogOptions = {
+        defaultPath: pathJoin(app.getPath("videos"), defaultFileName),
+        filters: [{ name: "MP4 Video", extensions: ["mp4"] }],
+      };
+      const result = browserWindow
+        ? await dialog.showSaveDialog(browserWindow, options)
+        : await dialog.showSaveDialog(options);
+      if (result.canceled || result.filePath === "") {
+        return undefined;
+      }
+      await writeFile(
+        result.filePath,
+        new Uint8Array(
+          data.buffer as ArrayBuffer,
+          data.byteOffset,
+          data.byteLength,
+        ),
+      );
+      return result.filePath;
+    },
+  );
+
+  // Screen recording: capture the requesting window's own page as JPEG frames.
+  // capturePage only rasterizes our own webContents, so no OS screen-recording
+  // permission is required (unlike desktopCapturer/ScreenCaptureKit on macOS).
+  const windowCaptureSessions = new Map<
+    number,
+    { interval: NodeJS.Timeout; inFlight: boolean }
+  >();
+
+  const stopWindowCapture = (webContentsId: number): void => {
+    const captureSession = windowCaptureSessions.get(webContentsId);
+    if (captureSession) {
+      clearInterval(captureSession.interval);
+      windowCaptureSessions.delete(webContentsId);
+    }
+  };
+
+  ipcMain.handle("startWindowCapture", (ev, frameRate: number) => {
+    const sender = ev.sender;
+    stopWindowCapture(sender.id);
+    const intervalMs = Math.max(
+      1000 / 60,
+      Math.round(1000 / Math.max(1, frameRate)),
+    );
+    const captureSession = {
+      interval: undefined as unknown as NodeJS.Timeout,
+      inFlight: false,
+    };
+    captureSession.interval = setInterval(() => {
+      if (sender.isDestroyed()) {
+        stopWindowCapture(sender.id);
+        return;
+      }
+      if (captureSession.inFlight) {
+        return;
+      }
+      captureSession.inFlight = true;
+      sender
+        .capturePage()
+        .then((image) => {
+          if (!sender.isDestroyed() && !image.isEmpty()) {
+            sender.send("windowCaptureFrame", image.toJPEG(80));
+          }
+        })
+        .catch((error: unknown) => {
+          log.error("windowCaptureFrame failed", error);
+          stopWindowCapture(sender.id);
+        })
+        .finally(() => {
+          captureSession.inFlight = false;
+        });
+    }, intervalMs);
+    windowCaptureSessions.set(sender.id, captureSession);
+    sender.once("destroyed", () => {
+      stopWindowCapture(sender.id);
+    });
+  });
+
+  ipcMain.handle("stopWindowCapture", (ev) => {
+    stopWindowCapture(ev.sender.id);
+  });
+
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   app.on("ready", async () => {
     updateNativeColorScheme();
+
     const argv = process.argv;
     const deepLinks = argv.filter((arg) => arg.startsWith("lichtblick://"));
 
@@ -282,7 +408,8 @@ export async function main(): Promise<void> {
       "font-src": "'self' data:",
       // Include http in the CSP to allow loading images (i.e. map tiles) from http endpoints like localhost
       // Include blob: to allow loading mesh textures fetched as assets and served via object URLs
-      "img-src": "'self' data: https: package: x-foxglove-converted-tiff: http: blob:",
+      "img-src":
+        "'self' data: https: package: x-foxglove-converted-tiff: http: blob:",
       "media-src": "'self' data: https: http: blob: file:",
     };
     const cspHeader = Object.entries(contentSecurityPolicy)
@@ -304,7 +431,9 @@ export async function main(): Promise<void> {
 
     // When we change the focused window we switch the app menu so actions go to the correct window
     app.on("browser-window-focus", (_ev, browserWindow) => {
-      const studioWindow = StudioWindow.fromWebContentsId(browserWindow.webContents.id);
+      const studioWindow = StudioWindow.fromWebContentsId(
+        browserWindow.webContents.id,
+      );
       if (studioWindow) {
         Menu.setApplicationMenu(studioWindow.getMenu());
       }

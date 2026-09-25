@@ -51,6 +51,7 @@ import {
   LaunchDefault,
   MessageFramerate,
   StepSize,
+  RecordingSettings,
   RosPackagePath,
   TimeFormat,
   TimezoneSettings,
@@ -68,9 +69,8 @@ export function AppSettingsDialog(
   const [activeTab, setActiveTab] = useState<AppSettingsTab>(
     _activeTab ?? initialActiveTab ?? "general",
   );
-  const [debugModeEnabled = false, setDebugModeEnabled] = useAppConfigurationValue<boolean>(
-    AppSetting.SHOW_DEBUG_PANELS,
-  );
+  const [debugModeEnabled = false, setDebugModeEnabled] =
+    useAppConfigurationValue<boolean>(AppSetting.SHOW_DEBUG_PANELS);
   const { classes, cx, theme } = useStyles();
   const smUp = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -79,7 +79,10 @@ export function AppSettingsDialog(
   // automatic updates are a desktop-only setting
   const supportsAppUpdates = isDesktopApp();
 
-  const handleTabChange = (_event: SyntheticEvent, newValue: AppSettingsTab) => {
+  const handleTabChange = (
+    _event: SyntheticEvent,
+    newValue: AppSettingsTab,
+  ) => {
     setActiveTab(newValue);
   };
 
@@ -89,10 +92,17 @@ export function AppSettingsDialog(
     }
   };
 
-  const extensionSettingsComponent = extensionSettings ?? <ExtensionsSettings />;
+  const extensionSettingsComponent = extensionSettings ?? (
+    <ExtensionsSettings />
+  );
 
   return (
-    <Dialog {...props} fullWidth maxWidth="md" data-testid={`AppSettingsDialog--${activeTab}`}>
+    <Dialog
+      {...props}
+      fullWidth
+      maxWidth="md"
+      data-testid={`AppSettingsDialog--${activeTab}`}
+    >
       <DialogTitle className={classes.dialogTitle}>
         {t("settings")}
         <IconButton edge="end" onClick={handleClose}>
@@ -107,7 +117,11 @@ export function AppSettingsDialog(
           onChange={handleTabChange}
         >
           <Tab className={classes.tab} label={t("general")} value="general" />
-          <Tab className={classes.tab} label={t("extensions")} value="extensions" />
+          <Tab
+            className={classes.tab}
+            label={t("extensions")}
+            value="extensions"
+          />
           <Tab
             className={classes.tab}
             label={t("experimentalFeatures")}
@@ -115,7 +129,12 @@ export function AppSettingsDialog(
           />
           <Tab className={classes.tab} label={t("about")} value="about" />
         </Tabs>
-        <Stack direction="row" fullHeight overflowY="auto" style={{ scrollbarGutter: "stable" }}>
+        <Stack
+          direction="row"
+          fullHeight
+          overflowY="auto"
+          style={{ scrollbarGutter: "stable" }}
+        >
           <section
             className={cx(classes.tabPanel, {
               [classes.tabPanelActive]: activeTab === "general",
@@ -127,6 +146,7 @@ export function AppSettingsDialog(
               <TimeFormat orientation={smUp ? "horizontal" : "vertical"} />
               <MessageFramerate />
               <StepSize />
+              <RecordingSettings />
               <LanguageSettings />
               {supportsAppUpdates && <AutoUpdate />}
               {!isDesktopApp() && <LaunchDefault />}
@@ -174,7 +194,9 @@ export function AppSettingsDialog(
           </section>
 
           <section
-            className={cx(classes.tabPanel, { [classes.tabPanelActive]: activeTab === "about" })}
+            className={cx(classes.tabPanel, {
+              [classes.tabPanelActive]: activeTab === "about",
+            })}
           >
             <Stack gap={2} alignItems="flex-start">
               <header>
@@ -192,7 +214,9 @@ export function AppSettingsDialog(
               {Array.from(APP_SETTINGS_ABOUT_ITEMS.values()).map((item) => {
                 return (
                   <Stack key={item.subheader} gap={1}>
-                    {item.subheader && <Typography>{item.subheader}</Typography>}
+                    {item.subheader && (
+                      <Typography>{item.subheader}</Typography>
+                    )}
                     {item.links.map((link) => (
                       <Link
                         variant="body2"

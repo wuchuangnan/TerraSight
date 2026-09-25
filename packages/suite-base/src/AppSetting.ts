@@ -32,6 +32,11 @@ export enum AppSetting {
   SHOW_OPEN_DIALOG_ON_STARTUP = "ui.open-dialog-startup",
   ENABLE_UNIFIED_NAVIGATION = "ui.new-app-menu",
 
+  // Screen recording
+  RECORDING_LOOP_DURATION = "recording.loop-duration",
+  RECORDING_TRAILING_DURATION = "recording.trailing-duration",
+  RECORDING_FRAME_RATE = "recording.frame-rate",
+
   // Dev only
   ENABLE_LAYOUT_DEBUGGING = "enableLayoutDebugging",
   ENABLE_MEMORY_USE_INDICATOR = "dev.memory-use-indicator",

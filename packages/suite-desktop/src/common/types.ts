@@ -16,10 +16,7 @@ export type ForwardedMenuEvent =
   | "open-help-general";
 
 export type ForwardedWindowEvent =
-  | "enter-full-screen"
-  | "leave-full-screen"
-  | "maximize"
-  | "unmaximize";
+  "enter-full-screen" | "leave-full-screen" | "maximize" | "unmaximize";
 
 /** Registering an event listener returns a function that will un-register the listener */
 export type UnregisterFn = () => void;
@@ -39,7 +36,10 @@ interface NativeMenuBridge {
    *
    * https://www.electronjs.org/docs/latest/api/context-bridge#parameter--error--return-type-support
    */
-  addIpcEventListener(eventName: ForwardedMenuEvent, handler: () => void): UnregisterFn;
+  addIpcEventListener(
+    eventName: ForwardedMenuEvent,
+    handler: () => void,
+  ): UnregisterFn;
 }
 
 // Items suitable for storage
@@ -56,7 +56,11 @@ interface Storage {
     key: string,
     options?: { encoding: undefined },
   ): Promise<Uint8Array | undefined>;
-  get(datastore: string, key: string, options: { encoding: "utf8" }): Promise<string | undefined>;
+  get(
+    datastore: string,
+    key: string,
+    options: { encoding: "utf8" },
+  ): Promise<string | undefined>;
   // put a single item into the datastore
   // This will replace any existing item with the same key
   put(datastore: string, key: string, value: StorageContent): Promise<void>;
@@ -88,7 +92,10 @@ interface Desktop {
   /** https://www.electronjs.org/docs/tutorial/represented-file */
   setRepresentedFilename(path: string | undefined): Promise<void>;
 
-  addIpcEventListener(eventName: ForwardedWindowEvent, handler: () => void): UnregisterFn;
+  addIpcEventListener(
+    eventName: ForwardedWindowEvent,
+    handler: () => void,
+  ): UnregisterFn;
 
   /**
    * Notify the app that the color scheme setting has changed and the native theme may need to be
@@ -133,6 +140,37 @@ interface Desktop {
 
   /** Notify the app that the language setting has been changed */
   updateLanguage(): void;
+
+  /**
+   * Save a screen recording via a native save dialog.
+   * Resolves to the saved file path, or undefined if the user cancelled.
+   */
+  saveRecording(
+    defaultFileName: string,
+    data: Uint8Array,
+  ): Promise<string | undefined>;
+
+  /**
+   * Start capturing the requesting window's page as JPEG frames at the given rate.
+   * Frames are delivered via the listener registered with onWindowCaptureFrame.
+   * No OS screen-recording permission is needed — only our own page is captured.
+   */
+  startWindowCapture(frameRate: number): Promise<void>;
+
+  /** Stop the capture started by startWindowCapture. */
+  stopWindowCapture(): Promise<void>;
+
+  /**
+   * Subscribe to captured JPEG frames. Returns an unregister function.
+   */
+  onWindowCaptureFrame(callback: (jpegData: Uint8Array) => void): UnregisterFn;
 }
 
-export type { Desktop, DesktopExtension, DesktopLayout, NativeMenuBridge, Storage, StorageContent };
+export type {
+  Desktop,
+  DesktopExtension,
+  DesktopLayout,
+  NativeMenuBridge,
+  Storage,
+  StorageContent,
+};

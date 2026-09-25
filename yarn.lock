@@ -3680,6 +3680,7 @@ __metadata:
     moment-timezone: "npm:0.6.3"
     monaco-editor: "npm:0.55.1"
     monaco-editor-webpack-plugin: "npm:7.1.1"
+    mp4-muxer: "npm:5.2.2"
     nanoid: "npm:5.1.16"
     natsort: "npm:2.0.3"
     nearley: "npm:2.20.1"
@@ -6237,6 +6238,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dom-webcodecs@npm:^0.1.6":
+  version: 0.1.19
+  resolution: "@types/dom-webcodecs@npm:0.1.19"
+  checksum: 10/196724993dbde852e20e7d22699c6818ddb646b8b689d1d71c5d9f52e3493b08828c2f83c20b77601db0a1f1c91d181acd5834b609b0755e3e0fdfd928a1f053
+  languageName: node
+  linkType: hard
+
 "@types/estree-jsx@npm:^1.0.0":
   version: 1.0.5
   resolution: "@types/estree-jsx@npm:1.0.5"
@@ -6998,6 +7006,13 @@ __metadata:
   version: 2023.10.7
   resolution: "@types/wicg-file-system-access@npm:2023.10.7"
   checksum: 10/25c1249d2714de2fa16ad3203e3748debd66451bd785405623847da0174abd7196955caf821869c54fed254174076a69173b80b26206794a01d5d53946c6107c
+  languageName: node
+  linkType: hard
+
+"@types/wicg-file-system-access@npm:^2020.9.5":
+  version: 2020.9.8
+  resolution: "@types/wicg-file-system-access@npm:2020.9.8"
+  checksum: 10/907e88adb8dc88e307e7e99ff7b734f872cbf509a4155f7600fe61a3d6b16b7dc9594e75a174571a58b5559545719c053a98890b4c1b93d5ade916b21b2af290
   languageName: node
   linkType: hard
 
@@ -16636,6 +16651,16 @@ __metadata:
   version: 0.5.3
   resolution: "moo@npm:0.5.3"
   checksum: 10/ce4a2e5ccab15bbe1b1ade5b8f821eea7d03cecda2898c2b343bd2c84f357c04ada2bdbc9bef9201cd1e4ddd7f2be7d365c2e058bb4862734790e0fa77740d81
+  languageName: node
+  linkType: hard
+
+"mp4-muxer@npm:5.2.2":
+  version: 5.2.2
+  resolution: "mp4-muxer@npm:5.2.2"
+  dependencies:
+    "@types/dom-webcodecs": "npm:^0.1.6"
+    "@types/wicg-file-system-access": "npm:^2020.9.5"
+  checksum: 10/2eada6482de844379046cfa07cdc2b63fa248ff0d8a39447d22806f8aec2f5f23a6d6b53988268e08d83df598a54e357643a3598ce611038bc0101d30333c23f
   languageName: node
   linkType: hard
 
