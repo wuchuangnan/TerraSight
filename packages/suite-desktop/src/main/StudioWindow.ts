@@ -133,7 +133,7 @@ function newStudioWindow(deepLinks: string[] = [], reloadMainWindow: () => void)
   });
 
   browserWindow.webContents.once("dom-ready", () => {
-    if (!isProduction) {
+    if (!isProduction && process.env.LICHTBLICK_OPEN_DEVTOOLS === "true") {
       browserWindow.webContents.openDevTools();
     }
     browserWindow.webContents.send(browserWindow.isMaximized() ? "maximize" : "unmaximize");
