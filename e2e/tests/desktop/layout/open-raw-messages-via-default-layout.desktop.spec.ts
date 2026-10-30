@@ -26,6 +26,8 @@ test("open Raw Messages Virtual panel when clicking on Layouts > layout", {
 
   // Then
   await expect(
-    mainWindow.getByText("Raw Messages Virtual panel", { exact: true }).count(),
-  ).resolves.toBe(1);
+    mainWindow.locator(
+      '[data-testid="panel-settings-title"][data-panel-type="RawMessagesVirtual"]',
+    ),
+  ).toHaveCount(1);
 });
