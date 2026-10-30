@@ -9,6 +9,8 @@ import { TypeOptions } from "i18next";
 
 // 布局侧边栏与布局操作菜单的文案
 export const layouts: TypeOptions["resources"]["layouts"] = {
+  addToFavorites: "收藏布局",
+  removeFromFavorites: "取消收藏",
   layouts: "布局",
   createNewLayout: "新建布局",
   importLayout: "导入布局",

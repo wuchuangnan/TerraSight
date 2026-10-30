@@ -27,10 +27,7 @@ export interface IScreenRecordingHost {
    * Persist a recording. Returns the path the file was saved to, or undefined if the
    * user cancelled the save dialog.
    */
-  saveRecording(
-    defaultFileName: string,
-    data: Uint8Array,
-  ): Promise<string | undefined>;
+  saveRecording(defaultFileName: string, data: Uint8Array): Promise<string | undefined>;
 }
 
 const webScreenRecordingHost: IScreenRecordingHost = {
@@ -41,16 +38,13 @@ const webScreenRecordingHost: IScreenRecordingHost = {
     });
   },
   async saveRecording(defaultFileName, data) {
-    downloadFiles([
-      { blob: new Blob([new Uint8Array(data)]), fileName: defaultFileName },
-    ]);
+    downloadFiles([{ blob: new Blob([new Uint8Array(data)]), fileName: defaultFileName }]);
     return defaultFileName;
   },
 };
 
-export const ScreenRecordingHostContext = createContext<IScreenRecordingHost>(
-  webScreenRecordingHost,
-);
+export const ScreenRecordingHostContext =
+  createContext<IScreenRecordingHost>(webScreenRecordingHost);
 
 export function useScreenRecordingHost(): IScreenRecordingHost {
   return useContext(ScreenRecordingHostContext);

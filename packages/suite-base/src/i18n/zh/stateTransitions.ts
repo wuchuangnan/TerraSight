@@ -9,6 +9,7 @@ import { TypeOptions } from "i18next";
 
 export const stateTransitions: TypeOptions["resources"]["stateTransitions"] = {
   addSeriesButton: "点击添加数据系列",
+  delta: "差值",
   labels: {
     addSeries: "添加数据系列",
     axisLabel: "轴标签",
@@ -24,10 +25,14 @@ export const stateTransitions: TypeOptions["resources"]["stateTransitions"] = {
     timestampHeaderStamp: "头时间戳",
     timestampReceiveTime: "接收时间",
   },
+  markerA: "P1",
+  markerB: "P2",
   max: "最大",
   maxXError: "X 最大值必须大于 X 最小值。",
+  measureMode: "测量差值",
   min: "最小",
   pathErrorMessage: "该路径解析出多个值",
   secondsRange: "范围（秒）",
+  value: "值",
   xAxis: "X 轴",
 };

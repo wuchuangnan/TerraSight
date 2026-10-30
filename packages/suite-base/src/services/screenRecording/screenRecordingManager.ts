@@ -74,10 +74,7 @@ class ScreenRecordingManager {
     }
   }
 
-  public async start(
-    settings: ScreenRecordingSettings,
-    stream: MediaStream,
-  ): Promise<void> {
+  public async start(settings: ScreenRecordingSettings, stream: MediaStream): Promise<void> {
     if (this.#recorder && this.#snapshot.state !== "idle") {
       return;
     }
@@ -125,16 +122,10 @@ export function useScreenRecording(): ScreenRecordingSnapshot & {
   );
   return {
     ...snapshot,
-    start: useCallback(
-      async (settings: ScreenRecordingSettings, stream: MediaStream) => {
-        await screenRecordingManager.start(settings, stream);
-      },
-      [],
-    ),
-    stopAndSave: useCallback(
-      async () => await screenRecordingManager.stopAndSave(),
-      [],
-    ),
+    start: useCallback(async (settings: ScreenRecordingSettings, stream: MediaStream) => {
+      await screenRecordingManager.start(settings, stream);
+    }, []),
+    stopAndSave: useCallback(async () => await screenRecordingManager.stopAndSave(), []),
     cancel: useCallback(() => {
       screenRecordingManager.cancel();
     }, []),

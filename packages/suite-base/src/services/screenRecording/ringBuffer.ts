@@ -19,10 +19,7 @@ export interface EncodedChunkLike {
  *
  * The newest chunk is always kept. Returns a new array; input is not mutated.
  */
-export function trimChunksToWindow<T extends EncodedChunkLike>(
-  chunks: T[],
-  windowUs: number,
-): T[] {
+export function trimChunksToWindow<T extends EncodedChunkLike>(chunks: T[], windowUs: number): T[] {
   if (chunks.length === 0) {
     return chunks;
   }
@@ -40,9 +37,7 @@ export function trimChunksToWindow<T extends EncodedChunkLike>(
 }
 
 /** Splits buffered chunks at a keyframe so saved video always starts on a keyframe. */
-export function alignToFirstKeyframe<T extends EncodedChunkLike>(
-  chunks: T[],
-): T[] {
+export function alignToFirstKeyframe<T extends EncodedChunkLike>(chunks: T[]): T[] {
   const firstKey = chunks.findIndex((chunk) => chunk.type === "key");
   return firstKey < 0 ? [] : chunks.slice(firstKey);
 }

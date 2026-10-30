@@ -16,8 +16,7 @@ export const panel = {
   errorTitle: "This panel encountered an unexpected error",
   errorIntro: "Something went wrong in this panel.",
   dismissThisError: "Dismiss this error",
-  errorOutro:
-    "to continue using this panel. If the issue persists, try resetting the panel.",
+  errorOutro: "to continue using this panel. If the issue persists, try resetting the panel.",
   dismiss: "Dismiss",
   resetPanel: "Reset Panel",
   resetPanelTooltip: "Reset panel settings to default values",

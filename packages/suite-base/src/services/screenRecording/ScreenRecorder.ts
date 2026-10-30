@@ -27,8 +27,15 @@ interface BufferedChunk {
   type: "key" | "delta";
 }
 
-/** Candidate H.264 codec strings, in order of preference (High/Main/Baseline, level 4.0). */
-const AVC_CODEC_CANDIDATES = ["avc1.640028", "avc1.4d0028", "avc1.42e028"];
+/** Candidate H.264 codec strings, in order of preference (High/Main/Baseline, levels 5.1/4.0). */
+const AVC_CODEC_CANDIDATES = [
+  "avc1.640033",
+  "avc1.4d0033",
+  "avc1.42e033",
+  "avc1.640028",
+  "avc1.4d0028",
+  "avc1.42e028",
+];
 
 const VIDEO_BITRATE = 8_000_000;
 
@@ -167,8 +174,7 @@ export class ScreenRecorder {
     this.#setState("stopping");
     const last = this.#chunks[this.#chunks.length - 1];
     if (last) {
-      this.#stopDeadlineUs =
-        last.timestamp + this.#options.trailingSeconds * 1e6;
+      this.#stopDeadlineUs = last.timestamp + this.#options.trailingSeconds * 1e6;
     }
     return await new Promise<Blob>((resolve, reject) => {
       this.#stopResolve = resolve;
@@ -188,16 +194,12 @@ export class ScreenRecorder {
     this.#chunks.push({ chunk, timestamp: chunk.timestamp, type: chunk.type });
 
     if (this.#state === "recording") {
-      this.#chunks = trimChunksToWindow(
-        this.#chunks,
-        this.#options.loopSeconds * 1e6,
-      );
+      this.#chunks = trimChunksToWindow(this.#chunks, this.#options.loopSeconds * 1e6);
       return;
     }
 
     if (this.#state === "stopping") {
-      this.#stopDeadlineUs ??=
-        chunk.timestamp + this.#options.trailingSeconds * 1e6;
+      this.#stopDeadlineUs ??= chunk.timestamp + this.#options.trailingSeconds * 1e6;
       if (chunk.timestamp >= this.#stopDeadlineUs) {
         void this.#finalize();
       }

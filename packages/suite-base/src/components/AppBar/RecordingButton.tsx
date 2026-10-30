@@ -69,15 +69,11 @@ export function RecordingButton(): React.JSX.Element {
   const host = useScreenRecordingHost();
   const { state, elapsedMs, start, stopAndSave } = useScreenRecording();
 
-  const [loopSeconds = 20] = useAppConfigurationValue<number>(
-    AppSetting.RECORDING_LOOP_DURATION,
-  );
+  const [loopSeconds = 20] = useAppConfigurationValue<number>(AppSetting.RECORDING_LOOP_DURATION);
   const [trailingSeconds = 10] = useAppConfigurationValue<number>(
     AppSetting.RECORDING_TRAILING_DURATION,
   );
-  const [frameRate = 15] = useAppConfigurationValue<number>(
-    AppSetting.RECORDING_FRAME_RATE,
-  );
+  const [frameRate = 15] = useAppConfigurationValue<number>(AppSetting.RECORDING_FRAME_RATE);
 
   const onStart = useCallback(async () => {
     const settings: ScreenRecordingSettings = {
@@ -100,15 +96,7 @@ export function RecordingButton(): React.JSX.Element {
         variant: "error",
       });
     }
-  }, [
-    host,
-    loopSeconds,
-    trailingSeconds,
-    frameRate,
-    start,
-    enqueueSnackbar,
-    t,
-  ]);
+  }, [host, loopSeconds, trailingSeconds, frameRate, start, enqueueSnackbar, t]);
 
   const onStop = useCallback(async () => {
     try {

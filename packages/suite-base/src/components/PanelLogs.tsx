@@ -81,11 +81,7 @@ export default function PanelLogs({
       className={classes.root}
       style={{ height: `${height}px`, maxHeight: "none" }}
     >
-      <div
-        className={classes.resizeHandle}
-        onMouseDown={handleMouseDown}
-        title={t("dragToResize")}
-      >
+      <div className={classes.resizeHandle} onMouseDown={handleMouseDown} title={t("dragToResize")}>
         <DragIndicatorIcon className={classes.resizeIcon} />
       </div>
 
@@ -110,10 +106,7 @@ export default function PanelLogs({
         <List dense>
           {logs.length === 0 ? (
             <ListItem>
-              <ListItemText
-                primary={t("noLogsYet")}
-                secondary={t("noLogsDescription")}
-              />
+              <ListItemText primary={t("noLogsYet")} secondary={t("noLogsDescription")} />
             </ListItem>
           ) : (
             logs.map((log, idx) => (

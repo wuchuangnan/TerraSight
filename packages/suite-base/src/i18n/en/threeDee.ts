@@ -38,8 +38,7 @@ export const threeDee = {
     "Activating preloading (3D/Image panel -> Transforms -> Settings) is recommended for accurate visualization of transform topics. NOTE: this may impact performance.",
   fixed: "Fixed",
   followMode: "Follow mode",
-  followModeHelp:
-    "Change the camera behavior during playback to follow the display frame or not.",
+  followModeHelp: "Change the camera behavior during playback to follow the display frame or not.",
   frameNotFound: "Frame {{frameId}} not found",
   hideAll: "Hide all",
   historySize: "History size",
@@ -91,8 +90,7 @@ export const threeDee = {
   phi: "Phi",
   planarProjectionFactor: "Planar projection factor",
   syncCamera: "Sync camera",
-  syncCameraHelp:
-    "Sync the camera with other panels that also have this setting enabled.",
+  syncCameraHelp: "Sync the camera with other panels that also have this setting enabled.",
   target: "Target",
   theta: "Theta",
   view: "View",
@@ -167,11 +165,9 @@ export const threeDee = {
   publishTypeHelp: "The type of message to publish when clicking in the scene",
   publishTypePoint: "Point (geometry_msgs/Point)",
   publishTypePose: "Pose (geometry_msgs/PoseStamped)",
-  publishTypePoseEstimate:
-    "Pose estimate (geometry_msgs/PoseWithCovarianceStamped)",
+  publishTypePoseEstimate: "Pose estimate (geometry_msgs/PoseWithCovarianceStamped)",
   thetaDeviation: "Theta deviation",
-  thetaDeviationHelp:
-    "The theta standard deviation to publish with pose estimates",
+  thetaDeviationHelp: "The theta standard deviation to publish with pose estimates",
   xDeviation: "X deviation",
   xDeviationHelp: "The X standard deviation to publish with pose estimates",
   yDeviation: "Y deviation",

@@ -10,8 +10,7 @@ import { TypeOptions } from "i18next";
 export const openDialog: TypeOptions["resources"]["openDialog"] = {
   canBeShared: "与队友分享数据文件、可视化布局和自定义扩展",
   collaborateTitle: "使用 TerraSight 数据平台加速开发",
-  convenientWebInterface:
-    "使用便捷的网页界面，以闪电般的速度标记、搜索和检索数据",
+  convenientWebInterface: "使用便捷的网页界面，以闪电般的速度标记、搜索和检索数据",
   createAFreeAccount: "创建免费账户",
   dontShowThisAgain: "启动时不再显示",
   exploreSampleData: "探索样本数据",
@@ -34,6 +33,7 @@ export const openDialog: TypeOptions["resources"]["openDialog"] = {
   seeTutorials: "查看教程",
   shareLayouts: "分享布局",
   signIn: "登录",
+  version: "v{{version}}",
   startCollaborating: "与您的 Foxglove 组织开始合作",
   startCollaboratingDescription:
     "充分利用你的 Foxglove 账户——无论你想深入研究你的数据还是与你的团队成员分享工具。",

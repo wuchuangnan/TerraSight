@@ -30,8 +30,7 @@ export const appSettings: TypeOptions["resources"]["appSettings"] = {
   memoryUseIndicator: "内存使用指示器",
   memoryUseIndicatorDescription: "在侧边栏中显示应用的内存使用情况。",
   syncLichtblickInstances: "同步 TerraSight 实例",
-  syncLichtblickInstancesDescription:
-    "在应用右下角启用按钮，用于同步已打开的 TerraSight 实例。",
+  syncLichtblickInstancesDescription: "在应用右下角启用按钮，用于同步已打开的 TerraSight 实例。",
   noExperimentalFeatures: "目前没有实验性的功能。",
   openLinksIn: "链接打开方式",
   recordingFrameRate: "录制帧率（fps）",

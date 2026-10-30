@@ -15,15 +15,13 @@ export const appSettings = {
   desktopApp: "Desktop app",
   displayTimestampsIn: "Display timestamps in",
   experimentalFeatures: "Experimental features",
-  experimentalFeaturesDescription:
-    "These features are unstable and not recommended for daily use.",
+  experimentalFeaturesDescription: "These features are unstable and not recommended for daily use.",
   extensions: "Extensions",
   followSystem: "Follow system",
   general: "General",
   language: "Language",
   layoutDebugging: "Layout debugging",
-  layoutDebuggingDescription:
-    "Show extra controls for developing and debugging layout storage.",
+  layoutDebuggingDescription: "Show extra controls for developing and debugging layout storage.",
   light: "Light",
   messageRate: "Message rate",
   stepSize: "Step size",
@@ -35,8 +33,7 @@ export const appSettings = {
   noExperimentalFeatures: "Currently there are no experimental features.",
   openLinksIn: "Open links in",
   recordingFrameRate: "Recording frame rate (fps)",
-  recordingFrameRateDescription:
-    "Frames per second captured when recording the app window.",
+  recordingFrameRateDescription: "Frames per second captured when recording the app window.",
   recordingLoopDuration: "Recording loop duration (s)",
   recordingLoopDurationDescription:
     "How many seconds of video are kept before the stop button is pressed.",

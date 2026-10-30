@@ -5,26 +5,14 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
-import {
-  alignToFirstKeyframe,
-  trimChunksToWindow,
-  EncodedChunkLike,
-} from "./ringBuffer";
+import { alignToFirstKeyframe, trimChunksToWindow, EncodedChunkLike } from "./ringBuffer";
 
-function chunk(
-  timestampUs: number,
-  type: "key" | "delta" = "delta",
-): EncodedChunkLike {
+function chunk(timestampUs: number, type: "key" | "delta" = "delta"): EncodedChunkLike {
   return { timestamp: timestampUs, type };
 }
 
 /** Builds a chunk sequence with a keyframe every `gop` chunks, 0.5s apart. */
-function sequence(
-  count: number,
-  gop: number,
-  startUs = 0,
-  stepUs = 500_000,
-): EncodedChunkLike[] {
+function sequence(count: number, gop: number, startUs = 0, stepUs = 500_000): EncodedChunkLike[] {
   return Array.from({ length: count }, (_, i) => ({
     timestamp: startUs + i * stepUs,
     type: i % gop === 0 ? ("key" as const) : ("delta" as const),
@@ -65,12 +53,7 @@ describe("trimChunksToWindow", () => {
 
 describe("alignToFirstKeyframe", () => {
   it("drops leading delta chunks", () => {
-    const chunks = [
-      chunk(0),
-      chunk(500_000),
-      chunk(1_000_000, "key"),
-      chunk(1_500_000),
-    ];
+    const chunks = [chunk(0), chunk(500_000), chunk(1_000_000, "key"), chunk(1_500_000)];
     expect(alignToFirstKeyframe(chunks)).toEqual(chunks.slice(2));
   });
 

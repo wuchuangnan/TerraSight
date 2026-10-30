@@ -12,9 +12,7 @@ import { Desktop } from "../../common/types";
 const FIRST_FRAME_TIMEOUT_MS = 5000;
 
 async function decodeJpeg(data: Uint8Array): Promise<ImageBitmap> {
-  return await createImageBitmap(
-    new Blob([new Uint8Array(data)], { type: "image/jpeg" }),
-  );
+  return await createImageBitmap(new Blob([new Uint8Array(data)], { type: "image/jpeg" }));
 }
 
 /**
@@ -30,9 +28,7 @@ export class DesktopScreenRecordingHost implements IScreenRecordingHost {
     this.#bridge = bridge;
   }
 
-  public async captureAppWindowStream(
-    frameRate: number,
-  ): Promise<MediaStream> {
+  public async captureAppWindowStream(frameRate: number): Promise<MediaStream> {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     if (!ctx) {

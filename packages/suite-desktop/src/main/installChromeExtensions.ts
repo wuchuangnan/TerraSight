@@ -27,6 +27,9 @@ export default async function installChromeExtensions(): Promise<void> {
       );
       return;
     }
-    throw err;
+    console.warn(
+      "Warning: extension installation failed. Continuing without React Developer Tools.",
+      err,
+    );
   }
 }

@@ -73,8 +73,7 @@ function formatTimezone(name: string) {
   const zoneAbbr = tz.zoneAbbr();
   const offset = tz.utcOffset();
   const offsetStr =
-    (offset >= 0 ? "+" : "") +
-    moment.duration(offset, "minutes").format("hh:mm", { trim: false });
+    (offset >= 0 ? "+" : "") + moment.duration(offset, "minutes").format("hh:mm", { trim: false });
   if (name === zoneAbbr) {
     return `${zoneAbbr} (${offsetStr})`;
   }
@@ -83,8 +82,9 @@ function formatTimezone(name: string) {
 
 export function ColorSchemeSettings(): React.JSX.Element {
   const { classes } = useStyles();
-  const [colorScheme = "system", setColorScheme] =
-    useAppConfigurationValue<string>(AppSetting.COLOR_SCHEME);
+  const [colorScheme = "system", setColorScheme] = useAppConfigurationValue<string>(
+    AppSetting.COLOR_SCHEME,
+  );
   const { t } = useTranslation("appSettings");
 
   const handleChange = useCallback(
@@ -130,9 +130,7 @@ export function TimezoneSettings(): React.ReactElement {
   };
 
   const { t } = useTranslation("appSettings");
-  const [timezone, setTimezone] = useAppConfigurationValue<string>(
-    AppSetting.TIMEZONE,
-  );
+  const [timezone, setTimezone] = useAppConfigurationValue<string>(AppSetting.TIMEZONE);
   const detectItem: Option = useMemo(
     () => ({
       key: "detect",
@@ -166,10 +164,7 @@ export function TimezoneSettings(): React.ReactElement {
     [],
   );
 
-  const allItems = useMemo(
-    () => [...fixedItems, ...timezoneItems],
-    [fixedItems, timezoneItems],
-  );
+  const allItems = useMemo(() => [...fixedItems, ...timezoneItems], [fixedItems, timezoneItems]);
 
   const selectedItem = useMemo(() => {
     if (timezone != undefined) {
@@ -223,9 +218,7 @@ export function TimeFormat({
         fullWidth
         exclusive
         value={timeFormat}
-        onChange={(_, value?: TimeDisplayMethod) =>
-          value != undefined && void setTimeFormat(value)
-        }
+        onChange={(_, value?: TimeDisplayMethod) => value != undefined && void setTimeFormat(value)}
       >
         <ToggleButton value="SEC" data-testid="timeformat-seconds">
           {formatTimeRaw(exampleTime)}
@@ -241,9 +234,9 @@ export function TimeFormat({
 export function LaunchDefault(): React.ReactElement {
   const { classes } = useStyles();
   const { t } = useTranslation("appSettings");
-  const [preference, setPreference] = useAppConfigurationValue<
-    string | undefined
-  >(AppSetting.LAUNCH_PREFERENCE);
+  const [preference, setPreference] = useAppConfigurationValue<string | undefined>(
+    AppSetting.LAUNCH_PREFERENCE,
+  );
   let sanitizedPreference: LaunchPreferenceValue;
   switch (preference) {
     case LaunchPreferenceValue.WEB:
@@ -264,26 +257,15 @@ export function LaunchDefault(): React.ReactElement {
         fullWidth
         exclusive
         value={sanitizedPreference}
-        onChange={(_, value?: string) =>
-          value != undefined && void setPreference(value)
-        }
+        onChange={(_, value?: string) => value != undefined && void setPreference(value)}
       >
-        <ToggleButton
-          value={LaunchPreferenceValue.WEB}
-          className={classes.toggleButton}
-        >
+        <ToggleButton value={LaunchPreferenceValue.WEB} className={classes.toggleButton}>
           <WebIcon /> {t("webApp")}
         </ToggleButton>
-        <ToggleButton
-          value={LaunchPreferenceValue.DESKTOP}
-          className={classes.toggleButton}
-        >
+        <ToggleButton value={LaunchPreferenceValue.DESKTOP} className={classes.toggleButton}>
           <ComputerIcon /> {t("desktopApp")}
         </ToggleButton>
-        <ToggleButton
-          value={LaunchPreferenceValue.ASK}
-          className={classes.toggleButton}
-        >
+        <ToggleButton value={LaunchPreferenceValue.ASK} className={classes.toggleButton}>
           <QuestionAnswerOutlinedIcon /> {t("askEachTime")}
         </ToggleButton>
       </ToggleButtonGroup>
@@ -293,12 +275,9 @@ export function LaunchDefault(): React.ReactElement {
 
 export function MessageFramerate(): React.ReactElement {
   const { t } = useTranslation("appSettings");
-  const [messageRate, setMessageRate] = useAppConfigurationValue<number>(
-    AppSetting.MESSAGE_RATE,
-  );
+  const [messageRate, setMessageRate] = useAppConfigurationValue<number>(AppSetting.MESSAGE_RATE);
   const options = useMemo(
-    () =>
-      MESSAGE_RATES.map((rate) => ({ key: rate, text: `${rate}`, data: rate })),
+    () => MESSAGE_RATES.map((rate) => ({ key: rate, text: `${rate}`, data: rate })),
     [],
   );
 
@@ -325,11 +304,11 @@ export function StepSize(): React.ReactElement {
   const defaultStepSize = 100;
   const minStepSize = 1;
 
-  const [stepSize = defaultStepSize, setStepSize] =
-    useAppConfigurationValue<number>(AppSetting.DEFAULT_STEP_SIZE);
+  const [stepSize = defaultStepSize, setStepSize] = useAppConfigurationValue<number>(
+    AppSetting.DEFAULT_STEP_SIZE,
+  );
 
-  const valueValidation = (value: number) =>
-    isNaN(value) || value < minStepSize;
+  const valueValidation = (value: number) => isNaN(value) || value < minStepSize;
   const isStepSizeInvalid = valueValidation(stepSize);
 
   const latestStepSizeRef = useRef(stepSize);
@@ -360,10 +339,9 @@ export function StepSize(): React.ReactElement {
           input: {
             type: "number",
             sx: {
-              "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
-                {
-                  display: "none",
-                },
+              "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                display: "none",
+              },
               "& input[type=number]": {
                 MozAppearance: "textfield",
               },
@@ -385,8 +363,7 @@ function RecordingNumberSetting(props: {
   description: string;
 }): React.ReactElement {
   const { setting, defaultValue, min, label, description } = props;
-  const [value = defaultValue, setValue] =
-    useAppConfigurationValue<number>(setting);
+  const [value = defaultValue, setValue] = useAppConfigurationValue<number>(setting);
 
   const isInvalid = isNaN(value) || value < min;
   const latestValueRef = useRef(value);
@@ -450,8 +427,9 @@ export function RecordingSettings(): React.ReactElement {
 }
 
 export function AutoUpdate(): React.ReactElement {
-  const [updatesEnabled = false, setUpdatedEnabled] =
-    useAppConfigurationValue<boolean>(AppSetting.UPDATES_ENABLED);
+  const [updatesEnabled = false, setUpdatedEnabled] = useAppConfigurationValue<boolean>(
+    AppSetting.UPDATES_ENABLED,
+  );
 
   const { classes } = useStyles();
 
@@ -496,8 +474,9 @@ export function RosPackagePath(): React.ReactElement {
 
 export function LanguageSettings(): React.ReactElement {
   const { t, i18n } = useTranslation("appSettings");
-  const [selectedLanguage = "en", setSelectedLanguage] =
-    useAppConfigurationValue<Language>(AppSetting.LANGUAGE);
+  const [selectedLanguage = "en", setSelectedLanguage] = useAppConfigurationValue<Language>(
+    AppSetting.LANGUAGE,
+  );
   const onChangeLanguage = useCallback(
     (event: SelectChangeEvent<Language>) => {
       const lang = event.target.value;
@@ -522,11 +501,7 @@ export function LanguageSettings(): React.ReactElement {
   return (
     <Stack>
       <FormLabel>{t("language")}:</FormLabel>
-      <Select<Language>
-        value={selectedLanguage}
-        fullWidth
-        onChange={onChangeLanguage}
-      >
+      <Select<Language> value={selectedLanguage} fullWidth onChange={onChangeLanguage}>
         {options.map((option) => (
           <MenuItem key={option.key} value={option.key}>
             {option.text}

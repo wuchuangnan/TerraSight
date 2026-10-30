@@ -40,131 +40,120 @@ import { AddPanelMenu } from "./AddPanelMenu";
 import { AppBarContainer } from "./AppBarContainer";
 import { AppBarIconButton } from "./AppBarIconButton";
 import { AppMenu } from "./AppMenu";
-import {
-  CustomWindowControls,
-  CustomWindowControlsProps,
-} from "./CustomWindowControls";
+import { CustomWindowControls, CustomWindowControlsProps } from "./CustomWindowControls";
 import { DataSource } from "./DataSource";
 import { NetworkStatusIndicator } from "./NetworkStatusIndicator";
 import { RecordingButton } from "./RecordingButton";
 import { SettingsMenu } from "./SettingsMenu";
 
-const useStyles = makeStyles<{ debugDragRegion?: boolean }, "avatar">()((
-  theme,
-  { debugDragRegion = false },
-  classes,
-) => {
-  const NOT_DRAGGABLE_STYLE: Record<string, string> = {
-    WebkitAppRegion: "no-drag",
-  };
-  if (debugDragRegion) {
-    NOT_DRAGGABLE_STYLE.backgroundColor = "red";
-  }
-  return {
-    toolbar: {
-      display: "grid",
-      width: "100%",
-      gridTemplateAreas: `"start middle end"`,
-      gridTemplateColumns: "1fr auto 1fr",
-      alignItems: "center",
-    },
-    logo: {
-      padding: theme.spacing(0.75, 0.5),
-      fontSize: "2.25rem",
-      color: theme.palette.primary.main,
-      borderRadius: 0,
+const useStyles = makeStyles<{ debugDragRegion?: boolean }, "avatar">()(
+  (theme, { debugDragRegion = false }, classes) => {
+    const NOT_DRAGGABLE_STYLE: Record<string, string> = {
+      WebkitAppRegion: "no-drag",
+    };
+    if (debugDragRegion) {
+      NOT_DRAGGABLE_STYLE.backgroundColor = "red";
+    }
+    return {
+      toolbar: {
+        display: "grid",
+        width: "100%",
+        gridTemplateAreas: `"start middle end"`,
+        gridTemplateColumns: "1fr auto 1fr",
+        alignItems: "center",
+      },
+      logo: {
+        padding: theme.spacing(0.75, 0.5),
+        fontSize: "2.25rem",
+        color: theme.palette.primary.main,
+        borderRadius: 0,
 
-      "svg:not(.MuiSvgIcon-root)": {
-        fontSize: "1em",
+        "svg:not(.MuiSvgIcon-root)": {
+          fontSize: "1em",
+        },
+        "&:hover": {
+          backgroundColor: tc(theme.palette.appBar.text).setAlpha(0.08).toRgbString(),
+        },
+        "&.Mui-selected": {
+          backgroundColor: theme.palette.appBar.primary,
+          color: theme.palette.appBar.text,
+        },
+        "&.Mui-disabled": {
+          color: "currentColor",
+          opacity: theme.palette.action.disabledOpacity,
+        },
       },
-      "&:hover": {
-        backgroundColor: tc(theme.palette.appBar.text)
-          .setAlpha(0.08)
-          .toRgbString(),
+      dropDownIcon: {
+        fontSize: "12px !important",
       },
-      "&.Mui-selected": {
-        backgroundColor: theme.palette.appBar.primary,
+      start: {
+        gridArea: "start",
+        display: "flex",
+        flex: 1,
+        alignItems: "center",
+      },
+      startInner: {
+        display: "flex",
+        alignItems: "center",
+        ...NOT_DRAGGABLE_STYLE, // make buttons clickable for desktop app
+      },
+      middle: {
+        gridArea: "middle",
+        justifySelf: "center",
+        overflow: "hidden",
+        maxWidth: "100%",
+        ...NOT_DRAGGABLE_STYLE, // make buttons clickable for desktop app
+      },
+      end: {
+        gridArea: "end",
+        flex: 1,
+        display: "flex",
+        justifyContent: "flex-end",
+      },
+      endInner: {
+        display: "flex",
+        alignItems: "center",
+        ...NOT_DRAGGABLE_STYLE, // make buttons clickable for desktop app
+      },
+      keyEquivalent: {
+        fontFamily: customTypography.fontMonospace,
+        background: tc(theme.palette.appBar.text).darken(45).toString(),
+        padding: theme.spacing(0, 0.5),
+        aspectRatio: 1,
+        borderRadius: theme.shape.borderRadius,
+        marginLeft: theme.spacing(1),
+      },
+      tooltip: {
+        marginTop: `${theme.spacing(0.5)} !important`,
+      },
+      avatar: {
         color: theme.palette.appBar.text,
+        backgroundColor: tc(theme.palette.appBar.main).lighten().toString(),
+        height: theme.spacing(3.5),
+        width: theme.spacing(3.5),
       },
-      "&.Mui-disabled": {
-        color: "currentColor",
-        opacity: theme.palette.action.disabledOpacity,
-      },
-    },
-    dropDownIcon: {
-      fontSize: "12px !important",
-    },
-    start: {
-      gridArea: "start",
-      display: "flex",
-      flex: 1,
-      alignItems: "center",
-    },
-    startInner: {
-      display: "flex",
-      alignItems: "center",
-      ...NOT_DRAGGABLE_STYLE, // make buttons clickable for desktop app
-    },
-    middle: {
-      gridArea: "middle",
-      justifySelf: "center",
-      overflow: "hidden",
-      maxWidth: "100%",
-      ...NOT_DRAGGABLE_STYLE, // make buttons clickable for desktop app
-    },
-    end: {
-      gridArea: "end",
-      flex: 1,
-      display: "flex",
-      justifyContent: "flex-end",
-    },
-    endInner: {
-      display: "flex",
-      alignItems: "center",
-      ...NOT_DRAGGABLE_STYLE, // make buttons clickable for desktop app
-    },
-    keyEquivalent: {
-      fontFamily: customTypography.fontMonospace,
-      background: tc(theme.palette.appBar.text).darken(45).toString(),
-      padding: theme.spacing(0, 0.5),
-      aspectRatio: 1,
-      borderRadius: theme.shape.borderRadius,
-      marginLeft: theme.spacing(1),
-    },
-    tooltip: {
-      marginTop: `${theme.spacing(0.5)} !important`,
-    },
-    avatar: {
-      color: theme.palette.appBar.text,
-      backgroundColor: tc(theme.palette.appBar.main).lighten().toString(),
-      height: theme.spacing(3.5),
-      width: theme.spacing(3.5),
-    },
-    iconButton: {
-      padding: theme.spacing(1),
-      borderRadius: 0,
+      iconButton: {
+        padding: theme.spacing(1),
+        borderRadius: 0,
 
-      "&:hover": {
-        backgroundColor: tc(theme.palette.appBar.text)
-          .setAlpha(0.08)
-          .toString(),
+        "&:hover": {
+          backgroundColor: tc(theme.palette.appBar.text).setAlpha(0.08).toString(),
 
-        [`.${classes.avatar}`]: {
-          backgroundColor: tc(theme.palette.appBar.main).lighten(20).toString(),
+          [`.${classes.avatar}`]: {
+            backgroundColor: tc(theme.palette.appBar.main).lighten(20).toString(),
+          },
+        },
+        "&.Mui-selected": {
+          backgroundColor: theme.palette.appBar.primary,
+
+          [`.${classes.avatar}`]: {
+            backgroundColor: tc(theme.palette.appBar.main).setAlpha(0.3).toString(),
+          },
         },
       },
-      "&.Mui-selected": {
-        backgroundColor: theme.palette.appBar.primary,
-
-        [`.${classes.avatar}`]: {
-          backgroundColor: tc(theme.palette.appBar.main)
-            .setAlpha(0.3)
-            .toString(),
-        },
-      },
-    },
-  };
-});
+    };
+  },
+);
 
 export type AppBarProps = CustomWindowControlsProps & {
   leftInset?: number;
@@ -172,12 +161,9 @@ export type AppBarProps = CustomWindowControlsProps & {
   debugDragRegion?: boolean;
 };
 
-const selectHasCurrentLayout = (state: LayoutState) =>
-  state.selectedLayout != undefined;
-const selectLeftSidebarOpen = (store: WorkspaceContextStore) =>
-  store.sidebars.left.open;
-const selectRightSidebarOpen = (store: WorkspaceContextStore) =>
-  store.sidebars.right.open;
+const selectHasCurrentLayout = (state: LayoutState) => state.selectedLayout != undefined;
+const selectLeftSidebarOpen = (store: WorkspaceContextStore) => store.sidebars.left.open;
+const selectRightSidebarOpen = (store: WorkspaceContextStore) => store.sidebars.right.open;
 
 export function AppBar(props: AppBarProps): React.JSX.Element {
   const {
@@ -206,15 +192,9 @@ export function AppBar(props: AppBarProps): React.JSX.Element {
 
   const { sidebarActions } = useWorkspaceActions();
 
-  const [appMenuEl, setAppMenuEl] = useState<undefined | HTMLElement>(
-    undefined,
-  );
-  const [userAnchorEl, setUserAnchorEl] = useState<undefined | HTMLElement>(
-    undefined,
-  );
-  const [panelAnchorEl, setPanelAnchorEl] = useState<undefined | HTMLElement>(
-    undefined,
-  );
+  const [appMenuEl, setAppMenuEl] = useState<undefined | HTMLElement>(undefined);
+  const [userAnchorEl, setUserAnchorEl] = useState<undefined | HTMLElement>(undefined);
+  const [panelAnchorEl, setPanelAnchorEl] = useState<undefined | HTMLElement>(undefined);
 
   const appMenuOpen = Boolean(appMenuEl);
   const userMenuOpen = Boolean(userAnchorEl);
@@ -284,69 +264,41 @@ export function AppBar(props: AppBarProps): React.JSX.Element {
               {enableMemoryUseIndicator && <MemoryUseIndicator />}
               {appBarLayoutButton}
               <RecordingButton />
-              <Stack
-                direction="row"
-                alignItems="center"
-                data-tourid="sidebar-button-group"
-              >
+              <Stack direction="row" alignItems="center" data-tourid="sidebar-button-group">
                 <AppBarIconButton
                   title={
                     <>
-                      {leftSidebarOpen
-                        ? t("hideLeftSidebar")
-                        : t("showLeftSidebar")}{" "}
+                      {leftSidebarOpen ? t("hideLeftSidebar") : t("showLeftSidebar")}{" "}
                       <kbd className={classes.keyEquivalent}>[</kbd>
                     </>
                   }
-                  aria-label={
-                    leftSidebarOpen
-                      ? t("hideLeftSidebar")
-                      : t("showLeftSidebar")
-                  }
+                  aria-label={leftSidebarOpen ? t("hideLeftSidebar") : t("showLeftSidebar")}
                   onClick={() => {
                     sidebarActions.left.setOpen(!leftSidebarOpen);
                   }}
                   data-tourid="left-sidebar-button"
                   data-testid="left-sidebar-button"
                 >
-                  {leftSidebarOpen ? (
-                    <PanelLeft24Filled />
-                  ) : (
-                    <PanelLeft24Regular />
-                  )}
+                  {leftSidebarOpen ? <PanelLeft24Filled /> : <PanelLeft24Regular />}
                 </AppBarIconButton>
                 <AppBarIconButton
                   title={
                     <>
-                      {rightSidebarOpen
-                        ? t("hideRightSidebar")
-                        : t("showRightSidebar")}{" "}
+                      {rightSidebarOpen ? t("hideRightSidebar") : t("showRightSidebar")}{" "}
                       <kbd className={classes.keyEquivalent}>]</kbd>
                     </>
                   }
-                  aria-label={
-                    rightSidebarOpen
-                      ? t("hideRightSidebar")
-                      : t("showRightSidebar")
-                  }
+                  aria-label={rightSidebarOpen ? t("hideRightSidebar") : t("showRightSidebar")}
                   onClick={() => {
                     sidebarActions.right.setOpen(!rightSidebarOpen);
                   }}
                   data-tourid="right-sidebar-button"
                   data-testid="right-sidebar-button"
                 >
-                  {rightSidebarOpen ? (
-                    <PanelRight24Filled />
-                  ) : (
-                    <PanelRight24Regular />
-                  )}
+                  {rightSidebarOpen ? <PanelRight24Filled /> : <PanelRight24Regular />}
                 </AppBarIconButton>
               </Stack>
-              <Tooltip
-                classes={{ tooltip: classes.tooltip }}
-                title="Profile"
-                arrow={false}
-              >
+              <Tooltip classes={{ tooltip: classes.tooltip }} title="Profile" arrow={false}>
                 <IconButton
                   className={cx(classes.iconButton, {
                     "Mui-selected": userMenuOpen,

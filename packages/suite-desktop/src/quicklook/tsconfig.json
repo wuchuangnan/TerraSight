@@ -2,7 +2,7 @@
   "extends": "@lichtblick/tsconfig/base",
   "include": ["./**/*"],
   "compilerOptions": {
-    "rootDir": "../../",
+    "rootDir": "../../../",
     "noEmit": true,
     "jsx": "react-jsx",
     "types": ["node", "jest"],

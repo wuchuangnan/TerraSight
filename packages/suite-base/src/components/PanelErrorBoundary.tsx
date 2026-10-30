@@ -63,7 +63,12 @@ function PanelErrorView(props: PanelErrorViewProps): ReactNode {
           >
             {t("resetPanel")}
           </Button>
-          <Button variant="text" title={t("removePanelTooltip")} color="error" onClick={props.onRemovePanel}>
+          <Button
+            variant="text"
+            title={t("removePanelTooltip")}
+            color="error"
+            onClick={props.onRemovePanel}
+          >
             {t("removePanel")}
           </Button>
         </Stack>

@@ -11,10 +11,7 @@ import { join as pathJoin } from "path";
 
 import { PreloaderSockets } from "@lichtblick/electron-socket/preloader";
 import Logger from "@lichtblick/log";
-import {
-  NetworkInterface,
-  OsContext,
-} from "@lichtblick/suite-base/src/OsContext";
+import { NetworkInterface, OsContext } from "@lichtblick/suite-base/src/OsContext";
 
 import { ExtensionsHandler } from "./ExtensionHandler";
 import LocalFileStorage from "./LocalFileStorage";
@@ -28,10 +25,7 @@ import {
   NativeMenuBridge,
   Storage,
 } from "../common/types";
-import {
-  LICHTBLICK_PRODUCT_NAME,
-  LICHTBLICK_PRODUCT_VERSION,
-} from "../common/webpackDefines";
+import { LICHTBLICK_PRODUCT_NAME, LICHTBLICK_PRODUCT_VERSION } from "../common/webpackDefines";
 
 // Since we have no way of modifying `window.process.argv` we use a sentinel cookie and reload
 // hack to reset the page without deep links. By setting a session cookie and reloading
@@ -116,11 +110,7 @@ export function main(): void {
   const getExtensionHandler = async (): Promise<ExtensionsHandler> => {
     if (!extensionHandler) {
       const homePath = (await ipcRenderer.invoke("getHomePath")) as string;
-      const userExtensionsDir = pathJoin(
-        homePath,
-        ".lichtblick-suite",
-        "extensions",
-      );
+      const userExtensionsDir = pathJoin(homePath, ".lichtblick-suite", "extensions");
       extensionHandler = new ExtensionsHandler(userExtensionsDir);
     }
     return extensionHandler;
@@ -205,11 +195,9 @@ export function main(): void {
       ipcRenderer.send("reloadMainWindow");
     },
     async saveRecording(defaultFileName: string, data: Uint8Array) {
-      return await (ipcRenderer.invoke(
-        "saveRecording",
-        defaultFileName,
-        data,
-      ) as Promise<string | undefined>);
+      return await (ipcRenderer.invoke("saveRecording", defaultFileName, data) as Promise<
+        string | undefined
+      >);
     },
     async startWindowCapture(frameRate: number) {
       await ipcRenderer.invoke("startWindowCapture", frameRate);

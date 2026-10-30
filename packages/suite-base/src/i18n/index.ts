@@ -6,9 +6,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 import i18n from "i18next";
-import LanguageDetector, {
-  DetectorOptions,
-} from "i18next-browser-languagedetector";
+import LanguageDetector, { DetectorOptions } from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
 import * as en from "./en";
@@ -28,9 +26,7 @@ const browserContextOptions: DetectorOptions = {
   lookupSessionStorage: SESSION_STORAGE_I18N_LANGUAGE,
 };
 
-export async function initI18n(options?: {
-  context?: "browser" | "electron-main";
-}): Promise<void> {
+export async function initI18n(options?: { context?: "browser" | "electron-main" }): Promise<void> {
   const { context = "browser" } = options ?? {};
   if (context === "browser") {
     i18n.use(initReactI18next);

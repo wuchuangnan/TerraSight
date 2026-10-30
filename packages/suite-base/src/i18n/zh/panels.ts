@@ -35,11 +35,9 @@ export const panels: TypeOptions["resources"]["panels"] = {
   rawMessages: "原始消息",
   rawMessagesDescription: "检查话题消息。",
   rawMessagesVirtual: "原始消息（虚拟列表）",
-  rawMessagesVirtualDescription:
-    "使用虚拟列表检查话题消息，适用于大数据量话题。",
+  rawMessagesVirtualDescription: "使用虚拟列表检查话题消息，适用于大数据量话题。",
   ROSDiagnosticsDetail: "诊断 – 详细信息（ROS）",
-  ROSDiagnosticsDetailDescription:
-    "显示特定 hardware_id 的 ROS DiagnosticArray 消息。",
+  ROSDiagnosticsDetailDescription: "显示特定 hardware_id 的 ROS DiagnosticArray 消息。",
   ROSDiagnosticSummary: "诊断 – 概要（ROS）",
   ROSDiagnosticSummaryDescription: "显示所有 ROS DiagnosticArray 消息的摘要。",
   stateTransitions: "状态转换",
@@ -55,8 +53,7 @@ export const panels: TypeOptions["resources"]["panels"] = {
   topicGraph: "话题图",
   topicGraphDescription: "显示活动节点、话题和服务的图形。",
   userScripts: "用户脚本",
-  userScriptsDescription:
-    "使用 TypeScript 编写自定义数据转换。以前称为 Node Playground。",
+  userScriptsDescription: "使用 TypeScript 编写自定义数据转换。以前称为 Node Playground。",
   variableSlider: "变量滑块",
   variableSliderDescription: "更新布局的数值变量值。",
 };
